@@ -1,4 +1,4 @@
-# spacex
+# proyecto-spacex
 
 ## Project setup
 ```
