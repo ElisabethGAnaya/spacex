@@ -26,7 +26,7 @@
           Home
           </router-link>
           
-          <div class="navbar-item has-dropdown is-hoverable">
+          <div v-if="isAuth" class="navbar-item has-dropdown is-hoverable">
             <router-link class="navbar-link  has-text-white" :to="{ name:'RocketsPage'}">
               Rockets
             </router-link>
@@ -46,7 +46,7 @@
             </div>
           </div>
 
-          <div class="navbar-item has-dropdown is-hoverable">
+          <div v-if="isAuth" class="navbar-item has-dropdown is-hoverable">
             <router-link class="navbar-link  has-text-white" :to="{ name:'DestionationsPage'}">
               Destinations
             </router-link>
@@ -72,19 +72,19 @@
         <div class="navbar-end">
           <div class="navbar-item">
             
-            <div class="navbar-item has-dropdown is-hoverable">
+            <div v-if="isAuth" class="navbar-item has-dropdown is-hoverable">
               <router-link class="navbar-link  has-text-white" :to="{ name:'ProfilePage'}">
                 <i class="fas fa-user-circle mr-2"></i>
                 Profile
               </router-link>
               <div class="navbar-dropdown is-boxed has-background-dark">
-                <a class="navbar-item  has-text-white" href="#">
+                <a class="navbar-item  has-text-white" @click.prevent="logout">
                   Logout
                 </a>
               </div>
             </div>
 
-            <div class="buttons">
+            <div v-if="!isAuth" class="buttons">
               <a class="button" href="#">
                 <span>
                   <router-link :to="{ name:'LoginPage'}">Login</router-link>
@@ -121,6 +121,22 @@ export default {
   },
   data() {
     return {
+    }
+  },
+  computed: {
+    isAuth(){
+      return this.$store.state.isAuth
+    }
+  },
+  created(){
+    const token = window.localStorage.getItem("token")
+    if(token){
+      this.$store.commit("login")
+    }
+  },
+  methods: {
+    logout(){
+      this.$store.commit("logout")
     }
   }
 }

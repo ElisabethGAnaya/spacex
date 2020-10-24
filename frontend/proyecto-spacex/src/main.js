@@ -11,6 +11,7 @@ import store  from './store'
 Vue.use(VueParticles)
 
 Vue.config.productionTip = false
+
 axios.defaults.baseURL = "http://localhost:3000/"
 
 Vue.use(VueAxios, axios)
