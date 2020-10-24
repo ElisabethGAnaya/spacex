@@ -17,7 +17,7 @@ const app = express()
 //*******Controllers********** */
 
 const userRoutes = require('./controllers/users')
-
+const authRoutes = require('./controllers/auth')
 
 //**********Init Function**********//
 
@@ -51,6 +51,8 @@ app.get('/', (req,res) => {
 })
 
 app.use('/users', userRoutes)
+app.use('/auth', authRoutes)
+
 
 app.get('*', (req,res) => {
   res.send("Sorry page not found! ❌")

@@ -30,11 +30,18 @@ async function createUser(req,res) {
 }
 
 
+async function getUser(req,res){
+  
+}
+
 
 router.route('/')
       .get(listUsers)
       .post(createUser)
 
 
+
+router.route('/:id')
+      .get(getUser)
 
 module.exports = router
