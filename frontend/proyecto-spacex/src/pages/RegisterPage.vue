@@ -18,7 +18,7 @@
     :clickEffect="false"
   ></vue-particles>
 
-    <div id="container-form" class="has-text-centered">
+    <div id="container-form" class="container has-text-centered">
 
       <router-link :to="{ name:'HomePage'}">
         <img class="logo" src="../assets/spacex-logo-svg-vector-1.png" alt="logo spacex">
@@ -26,39 +26,85 @@
 
       <p class="has-text-weight-normal has-text-white is-size-4 mt-3">Create a New Account</p>
 
-      <div class="field  mt-6 mb-6">
-        <div class="control has-icons-left">
-          <input v-model="user.firstname" class="input has-text-white" type="text" placeholder="Firstname">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-        </div>
-      </div>
+      <div class="columns">
+        <div class="column is-half">
 
-      <div class="field  mt-6 mb-6">
-        <div class="control has-icons-left">
-          <input v-model="user.lastname" class="input has-text-white" type="text" placeholder="Lastname">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-        </div>
-      </div>
+          <div class="field  mt-6 mb-6">
+            <div class="control has-icons-left">
+              <input v-model="user.firstname" class="input has-text-white" type="text" placeholder="Firstname">
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </div>
+          </div>
 
-      <div class="field  mt-6 mb-6">
-        <div class="control has-icons-left">
-          <input v-model="user.email" class="input has-text-white" type="email" placeholder="Email">
-          <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
-          </span>
-        </div>
-      </div>
+          <div class="field  mt-6 mb-6">
+            <div class="control has-icons-left">
+              <input v-model="user.lastname" class="input has-text-white" type="text" placeholder="Lastname">
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+            </div>
+          </div>
 
-      <div class="field  mt-6 mb-6">
-        <div class="control has-icons-left">
-          <input v-model="user.password" class="input has-text-white" type="password" placeholder="Password">
-          <span class="icon is-small is-left">
-            <i class="fas fa-lock"></i>
-          </span>
+          <div class="field  mt-6 mb-6">
+            <div class="control has-icons-left">
+              <input v-model="user.email" class="input has-text-white" type="email" placeholder="Email">
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field  mt-6">
+            <div class="control has-icons-left">
+              <input v-model="user.password" class="input has-text-white" type="password" placeholder="Password">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="column is-half">
+
+          <div class="field  mt-6">
+            <div class="control has-icons-left">
+              <input v-model="user.phone" class="input has-text-white" type="text" placeholder="Phone">
+              <span class="icon is-small is-left">
+                <i class="fas fa-mobile-alt"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field  mt-6 mb-6">
+            <div class="control has-icons-left">
+              <input v-model="user.weight" class="input has-text-white" type="number" placeholder="Weight (kg)">
+              <span class="icon is-small is-left">
+                <i class="fas fa-weight"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field  mt-6 mb-6">
+            <div class="control has-icons-left">
+              <input v-model="user.height" class="input has-text-white" type="number" placeholder="Height (cm)">
+              <span class="icon is-small is-left">
+                <i class="fas fa-arrows-alt-v"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field  mt-6 mb-6">
+            <div class="control has-icons-left">
+              <input v-model="user.age" class="input has-text-white" type="number" placeholder="Age">
+              <span class="icon is-small is-left">
+                <i class="fas fa-birthday-cake"></i>
+              </span>
+            </div>
+          </div>
+
         </div>
       </div>
           
@@ -78,8 +124,12 @@ export default {
       user:{
         firstname:"",
         lastname:"",
+        phone:"",
         email:"",
-        password:""
+        password:"",
+        weight:"",
+        height:"",
+        age:""
       }
     }
   },
