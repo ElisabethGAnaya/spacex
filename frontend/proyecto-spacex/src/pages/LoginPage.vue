@@ -29,7 +29,7 @@
 
       <div class="field  mt-6 mb-6">
         <div class="control has-icons-left has-icons-right">
-          <input class="input has-text-white" type="email" placeholder="Email">
+          <input v-model.trim="loginData.email" class="input has-text-white" type="email" placeholder="Email">
           <span class="icon is-small is-left">
             <i class="fas fa-envelope"></i>
           </span>
@@ -41,7 +41,7 @@
 
       <div class="field  mt-6 mb-6">
         <div class="control has-icons-left has-icons-right">
-          <input class="input has-text-white" type="password" placeholder="Password">
+          <input v-model.trim="loginData.password" class="input has-text-white" type="password" placeholder="Password">
           <span class="icon is-small is-left">
             <i class="fas fa-lock"></i>
           </span>
@@ -57,7 +57,7 @@
         </div>
       </div> -->
           
-      <button class="btn button mt-3">Login</button>
+      <button class="btn button mt-3" @click.prevent="login">Login</button>
 
     </div>
 
@@ -70,7 +70,24 @@ export default {
   name: "LoginPage",
   data() {
     return {
-      
+      loginData:{
+        email:"",
+        password:""
+      }
+    }
+  },
+  methods:{
+    async login(){
+      try{
+        const response = await this.$http.post("/auth/login", this.loginData)
+        window.localStorage.setItem("token", response.data.token)
+        this.$router.push({ name: "HomePage"})
+      }catch(e){
+        console.log(e)
+        alert("If you have regestered account, but can't access. Please try a little bit later or contact administration")
+        this.loginData.email = "",
+        this.loginData.password = ""
+      }
     }
   }
 }
