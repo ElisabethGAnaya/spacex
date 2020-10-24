@@ -1,97 +1,111 @@
 <template>
-
-  <nav class="navbar is-transparent">
-    <div class="navbar-brand">
-      <!-- <a class="navbar-item" href="/"> -->
-      <router-link class="navbar-item" :to="{ name:'HomePage'}">
-        <img src="../assets/spacex-logo-svg-vector.svg" alt="Bulma: a modern CSS framework based on Flexbox" height="28">
-      </router-link>
-      <!-- </a> -->
-      <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
-        <span></span>
-        <span></span>
-        <span></span>
+  <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <!-- <a class="navbar-item" href="/"> -->
+        <router-link class="navbar-item" :to="{ name:'HomePage'}">
+          <img src="../assets/spacex-logo-svg-vector.svg" alt="logo spacex" height="28">
+        </router-link>
+        <!-- </a> -->
+        
+        <a
+          role="button"
+          class="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-    </div>
 
-    <div id="navbarExampleTransparentExample" class="navbar-menu">
-      <div class="navbar-start">
-        <router-link class="navbar-item  has-text-white" :to="{ name:'HomePage'}">
+      <div id="navbarBasicExample" class="navbar-menu has-background-darkblue">
+        <div class="navbar-start">
+          <router-link class="navbar-item  has-text-white" :to="{ name:'HomePage'}">
           Home
-        </router-link>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <router-link class="navbar-link  has-text-white" :to="{ name:'RocketsPage'}">
-            Rockets
           </router-link>
-          <div class="navbar-dropdown is-boxed has-background-dark">
-            <a class="navbar-item  has-text-white" href="#">
-              Falcon 9
-            </a>
-            <a class="navbar-item  has-text-white" href="#">
-              Falcon Heavy
-            </a>
-            <a class="navbar-item  has-text-white" href="#">
-              Dragon
-            </a>
-            <a class="navbar-item  has-text-white" href="#">
-              Starship
-            </a>
+          
+          <div class="navbar-item has-dropdown is-hoverable">
+            <router-link class="navbar-link  has-text-white" :to="{ name:'RocketsPage'}">
+              Rockets
+            </router-link>
+            <div class="navbar-dropdown is-boxed has-background-dark">
+              <a class="navbar-item  has-text-white" href="#">
+                Falcon 9
+              </a>
+              <a class="navbar-item  has-text-white" href="#">
+                Falcon Heavy
+              </a>
+              <a class="navbar-item  has-text-white" href="#">
+                Dragon
+              </a>
+              <a class="navbar-item  has-text-white" href="#">
+                Starship
+              </a>
+            </div>
           </div>
-        </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <router-link class="navbar-link  has-text-white" :to="{ name:'DestionationsPage'}">
-            Destinations
-          </router-link>
-          <div class="navbar-dropdown is-boxed has-background-dark">
-            <a class="navbar-item  has-text-white" href="#">
-              Moon
-            </a>
-            <a class="navbar-item  has-text-white" href="#">
-              Mar
-            </a>
-          </div>
-        </div>
-        <router-link class="navbar-item  has-text-white" :to="{ name:'MissionsPage'}">
-          Mission
-        </router-link>
-        <router-link class="navbar-item  has-text-white" :to="{ name:'/'}">
-          Blog
-        </router-link>
-      </div>
 
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="field is-grouped">
-            <p class="control">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <router-link class="navbar-link  has-text-white" :to="{ name:'DestionationsPage'}">
+              Destinations
+            </router-link>
+            <div class="navbar-dropdown is-boxed has-background-dark">
+              <a class="navbar-item  has-text-white" href="#">
+                Moon
+              </a>
+              <a class="navbar-item  has-text-white" href="#">
+                Mars
+              </a>
+            </div>
+          </div>
+
+          <router-link class="navbar-item  has-text-white" :to="{ name:'MissionsPage'}">
+            Mission
+          </router-link>
+          
+          <router-link class="navbar-item  has-text-white" :to="{ name:'/'}">
+            Blog
+          </router-link>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
               <a class="button" href="#">
                 <span>
                   <router-link :to="{ name:'LoginPage'}">Login</router-link>
                 </span>
               </a>
-            </p>
-            <p class="control">
               <a class="button is-link" href="#">
-                <!-- <span class="icon">
-                  <i class="fas fa-download"></i>
-                </span> -->
                 <span>
                   <router-link class="has-text-white" :to="{ name:'RegisterPage'}">Sign up</router-link>
                 </span>
               </a>
-            </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </nav>
-
+    </nav>
 </template>
 
 
 <script>
+import $ from "jquery"
 
 export default {
   name: "MainNav",
+  mounted() {
+    $(document).ready(function() {
+      let navbar = document.querySelector(".navbar-burger");
+      navbar.addEventListener("click", function() {
+        let target = navbar.dataset.target;
+        let $target = document.getElementById(target);
+        navbar.classList.toggle("is-active");
+        $target.classList.toggle("is-active");
+      });
+    });
+  },
   data() {
     return {
     }

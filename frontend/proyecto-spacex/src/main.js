@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Vuex from 'vuex'
+import VueParticles from 'vue-particles'
 
 
 /***************Components***************/
@@ -15,6 +16,7 @@ import AdminPage from '@/pages/AdminPage'
 import RocketsPage from '@/pages/RocketsPage'
 import DestinationsPage from '@/pages/DestinationsPage'
 import MissionsPage from '@/pages/MissionsPage'
+import ErrorPage from '@/pages/ErrorPage'
 
 
 /***************Routes***************/
@@ -27,11 +29,14 @@ const routes = [
   { path: "/rockets", name: "RocketsPage", component: RocketsPage },
   { path: "/destinations", name: "DestionationsPage", component: DestinationsPage },
   { path: "/missions", name: "MissionsPage", component: MissionsPage },
+  { path: "*", name: "error", component: ErrorPage }
 ]
 
 const router = new VueRouter({ routes, mode: "history" })
 
 Vue.use(VueRouter)
+
+Vue.use(VueParticles)
 
 Vue.config.productionTip = false
 

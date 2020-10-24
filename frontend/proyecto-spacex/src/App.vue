@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <MainNav id="app" />
-
     <router-view class="has-text-white"></router-view>
-
   </div>
 </template>
 
@@ -19,7 +17,4 @@ export default {
 </script>
 
 <style>
-#app {
-  background: #000a14;
-}
 </style>
