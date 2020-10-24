@@ -34,11 +34,20 @@ const routes = [
 
 const router = new VueRouter({ routes, mode: "history" })
 
+
+/***************Middlewares***************/
 Vue.use(VueRouter)
 
 Vue.use(VueParticles)
 
 Vue.config.productionTip = false
+axios.defaults.baseURL = "http://localhost:3000/"
+
+Vue.use(VueAxios, axios)
+
+Vue.use(Vuex)
+
+
 
 new Vue({
   router,

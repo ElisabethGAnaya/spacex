@@ -28,7 +28,7 @@
 
       <div class="field  mt-6 mb-6">
         <div class="control has-icons-left">
-          <input class="input has-text-white" type="text" placeholder="Firstname">
+          <input v-model="user.firstname" class="input has-text-white" type="text" placeholder="Firstname">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -37,7 +37,7 @@
 
       <div class="field  mt-6 mb-6">
         <div class="control has-icons-left">
-          <input class="input has-text-white" type="text" placeholder="Lastname">
+          <input v-model="user.lastname" class="input has-text-white" type="text" placeholder="Lastname">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -46,7 +46,7 @@
 
       <div class="field  mt-6 mb-6">
         <div class="control has-icons-left">
-          <input class="input has-text-white" type="email" placeholder="Email">
+          <input v-model="user.email" class="input has-text-white" type="email" placeholder="Email">
           <span class="icon is-small is-left">
             <i class="fas fa-envelope"></i>
           </span>
@@ -55,14 +55,14 @@
 
       <div class="field  mt-6 mb-6">
         <div class="control has-icons-left">
-          <input class="input has-text-white" type="password" placeholder="Password">
+          <input v-model="user.password" class="input has-text-white" type="password" placeholder="Password">
           <span class="icon is-small is-left">
             <i class="fas fa-lock"></i>
           </span>
         </div>
       </div>
           
-      <button class="btn button mt-3">Register</button>
+      <button class="btn button mt-3" @click.prevent="register">Register</button>
 
     </div>
 
@@ -75,7 +75,24 @@ export default {
   name: "RegisterPage",
   data() {
     return {
-      
+      user:{
+        firstname:"",
+        lastname:"",
+        email:"",
+        password:""
+      }
+    }
+  },
+  methods: {
+    async register(){
+      try {
+        await this.$http.post("/users", this.user)
+        alert("Congratulations, you account has been created")
+        this.$router.push({ name: "LoginPage" })
+      } catch(e){
+        alert("Ups, something went wrong. Please try again later")
+        consol.log(e)
+      }
     }
   }
 }
