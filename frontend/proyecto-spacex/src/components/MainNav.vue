@@ -71,6 +71,19 @@
 
         <div class="navbar-end">
           <div class="navbar-item">
+            
+            <div class="navbar-item has-dropdown is-hoverable">
+              <router-link class="navbar-link  has-text-white" :to="{ name:'ProfilePage'}">
+                <i class="fas fa-user-circle mr-2"></i>
+                Profile
+              </router-link>
+              <div class="navbar-dropdown is-boxed has-background-dark">
+                <a class="navbar-item  has-text-white" href="#">
+                  Logout
+                </a>
+              </div>
+            </div>
+
             <div class="buttons">
               <a class="button" href="#">
                 <span>
