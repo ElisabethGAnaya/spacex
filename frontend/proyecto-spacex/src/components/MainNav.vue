@@ -27,8 +27,8 @@
           </router-link>
           
           <div v-if="isAuth" class="navbar-item has-dropdown is-hoverable">
-            <router-link class="navbar-link  has-text-white" :to="{ name:'RocketsPage'}">
-              Rockets
+            <router-link class="navbar-link  has-text-white" :to="{ name:'SpacecraftsPage'}">
+              Spacecrafts
             </router-link>
             <div class="navbar-dropdown is-boxed has-background-dark">
               <a class="navbar-item  has-text-white" href="#">
@@ -61,7 +61,7 @@
           </div>
 
           <router-link class="navbar-item  has-text-white" :to="{ name:'MissionsPage'}">
-            Mission
+            Missions
           </router-link>
           
           <router-link class="navbar-item  has-text-white" :to="{ name:'/'}">

@@ -1,14 +1,14 @@
 <template>
 
 <div>
-  rockets
+  spacecrafts 
 </div>
 
 </template>
 
 <script>
 export default {
-  name: "RocketsPage",
+  name: "SpacecraftsPage",
   data() {
     return {
       

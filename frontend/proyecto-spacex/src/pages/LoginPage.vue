@@ -28,7 +28,7 @@
       <p class="has-text-weight-normal has-text-white is-size-4 mt-3">Welcome Back!</p>
 
       <div class="field  mt-6 mb-6">
-        <div class="control has-icons-left has-icons-right">
+        <div class="form control has-icons-left has-icons-right">
           <input v-model.trim="loginData.email" class="input has-text-white" type="email" placeholder="Email">
           <span class="icon is-small is-left">
             <i class="fas fa-envelope"></i>
@@ -40,7 +40,7 @@
       </div>
 
       <div class="field  mt-6 mb-6">
-        <div class="control has-icons-left has-icons-right">
+        <div class="form control has-icons-left has-icons-right">
           <input v-model.trim="loginData.password" class="input has-text-white" type="password" placeholder="Password">
           <span class="icon is-small is-left">
             <i class="fas fa-lock"></i>
