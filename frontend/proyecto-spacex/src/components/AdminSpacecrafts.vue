@@ -78,10 +78,14 @@
               </div>
 
               <div class="columns">
-                <div class="column is-halft">
-                  <div class="field ">
-                  <div class="control">
-                    <textarea class="textarea" placeholder="Description"></textarea>
+                <div class="column is-half">
+                  <div class="field">
+                  <div class="select is-fullwidth">
+                    <select>
+                      <option>Mood</option>
+                      <option>Free</option>
+                      <option>In Orbit</option>
+                    </select>
                   </div>
                   </div>
                 </div>
@@ -96,14 +100,14 @@
                     </select>
                   </div>
                   </div>
+                </div>
+              </div>
 
-                  <div class="field mt-5">
-                  <div class="select is-fullwidth">
-                    <select>
-                      <option>Mood</option>
-                      <option>Free</option>
-                      <option>In Orbit</option>
-                    </select>
+              <div class="columns">
+                <div class="column is-halft">
+                  <div class="field ">
+                  <div class="control">
+                    <textarea class="textarea" placeholder="Description"></textarea>
                   </div>
                   </div>
                 </div>
@@ -130,27 +134,49 @@
               <!-- Card 1 -->
               <div>
                 <div class="card m-4">
-                <div class="card-content">
-                      <p class="title is-4">Falcon 9</p>
-                        
-                </div>
-                <footer class="card-footer">
-                  <a href="#" class="card-footer-item">Edit</a>
-                  <a href="#" class="card-footer-item">Delete</a>
-                </footer>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <figure class="image is-128x128">
+                          <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                        </figure>
+                      </div>
+                      <div class="media-content">
+                        <p class="title is-4">Falcon 9</p>
+                        <p class="subtitle is-6"><span class="tag is-success">Active</span> <span class="tag is-link">In Orbit</span></p>
+                      </div>
+                    </div>
+                    <table class="table is-fullwidth">
+                        <tbody>
+                          <tr>
+                            <th>Maximum Load (kg)</th>
+                            <td>4000</td>
+                          </tr>
+                          <tr>
+                            <th>Height (m)</th>
+                            <td>70</td>
+                          </tr>
+                           <tr>
+                            <th>Diameter (m)</th>
+                            <td>3.7</td>
+                          </tr>
+                           <tr>
+                            <th>Passengers</th>
+                            <td>8</td>
+                          </tr>
+                           <tr>
+                            <th>Description</th>
+                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex quam exercitationem sint nulla dolor tenetur consequatur dolores cupiditate perspiciatis modi!</td>
+                          </tr>
+                        </tbody>
+                    </table> 
+                  </div>
+                  <footer class="card-footer">
+                    <a href="#" class="card-footer-item">Edit</a>
+                    <a href="#" class="card-footer-item">Delete</a>
+                  </footer>
                 </div>
 
-              <!-- Card 2 -->
-                <div class="card m-4">
-                <div class="card-content">
-                      <p class="title is-4">Falcon Heavy</p>
-                      
-                </div>
-                <footer class="card-footer">
-                  <a href="#" class="card-footer-item">Edit</a>
-                  <a href="#" class="card-footer-item">Delete</a>
-                </footer>
-                </div>
               </div>
 
         </div>

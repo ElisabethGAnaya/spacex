@@ -94,6 +94,20 @@
                   <div class="field">
                   <div class="select is-fullwidth">
                     <select>
+                      <option>Mood</option>
+                      <option>Free</option>
+                      <option>In Orbit</option>
+                    </select>
+                  </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="columns">
+                <div class="column is-half">
+                  <div class="field">
+                  <div class="select is-fullwidth">
+                    <select>
                       <option>State Account</option>
                       <option>Active</option>
                       <option>Inactive</option>
@@ -124,28 +138,73 @@
               <!-- Card 1 -->
               <div>
                 <div class="card m-4">
-                <div class="card-content">
-                      <p class="title is-4">Tom Smith <span class="tag is-danger">Inactive</span></p>
-                      <p class="subtitle is-6">tom@gmail.com</p>
-                        
-                </div>
-                <footer class="card-footer">
-                  <a href="#" class="card-footer-item">Edit</a>
-                  <a href="#" class="card-footer-item">Delete</a>
-                </footer>
+                  <div class="card-content">
+                      <p class="title is-4">Tom Smith <span class="tag is-danger">Inactive</span> <span class="tag is-dark">Free</span></p>
+                      <!-- <p class="subtitle is-6">tom@gmail.com</p> -->
+                      <table class="table is-fullwidth">
+                        <tbody>
+                          <tr>
+                            <th>Email</th>
+                            <td>tom@gmail.com</td>
+                          </tr>
+                          <tr>
+                            <th>Phone</th>
+                            <td>777 66 55 44</td>
+                          </tr>
+                           <tr>
+                            <th>Weight (kg)</th>
+                            <td>70</td>
+                          </tr>
+                           <tr>
+                            <th>Height (cm)</th>
+                            <td>177</td>
+                          </tr>
+                           <tr>
+                            <th>Age</th>
+                            <td>28</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                  <footer class="card-footer">
+                    <a href="#" class="card-footer-item">Edit</a>
+                    <a href="#" class="card-footer-item">Delete</a>
+                  </footer>
                 </div>
 
               <!-- Card 2 -->
                 <div class="card m-4">
-                <div class="card-content">
-                      <p class="title is-4">Pili López <span class="tag is-danger">Inactive</span></p>
-                      <p class="subtitle is-6">pili@gmail.com</p>
-                      
-                </div>
-                <footer class="card-footer">
-                  <a href="#" class="card-footer-item">Edit</a>
-                  <a href="#" class="card-footer-item">Delete</a>
-                </footer>
+                  <div class="card-content">
+                      <p class="title is-4">Pili López <span class="tag is-success">Active</span> <span class="tag is-link">In Orbit</span></p>
+                       <table class="table is-fullwidth">
+                        <tbody>
+                          <tr>
+                            <th>Email</th>
+                            <td>pili@gmail.com</td>
+                          </tr>
+                          <tr>
+                            <th>Phone</th>
+                            <td>777 66 55 44</td>
+                          </tr>
+                           <tr>
+                            <th>Weight (kg)</th>
+                            <td>62</td>
+                          </tr>
+                           <tr>
+                            <th>Height (cm)</th>
+                            <td>168</td>
+                          </tr>
+                           <tr>
+                            <th>Age</th>
+                            <td>28</td>
+                          </tr>
+                        </tbody>
+                       </table>          
+                  </div>
+                  <footer class="card-footer">
+                    <a href="#" class="card-footer-item">Edit</a>
+                    <a href="#" class="card-footer-item">Delete</a>
+                  </footer>
                 </div>
               </div>
 

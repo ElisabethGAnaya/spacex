@@ -10,12 +10,14 @@ import AdminPage from '@/pages/AdminPage'
 import SpacecraftsPage from '@/pages/SpacecraftsPage'
 import DestinationsPage from '@/pages/DestinationsPage'
 import MissionsPage from '@/pages/MissionsPage'
+import BlogPage from '@/pages/BlogPage'
 import ErrorPage from '@/pages/ErrorPage'
 
 // AdminPage
 import AdminUsers from '@/components/AdminUsers'
 import AdminSpacecrafts from '@/components/AdminSpacecrafts'
 import AdminDestinations from '@/components/AdminDestinations'
+import AdminBlog from '@/components/AdminBlog'
 
 
 /***************Routes***************/
@@ -43,10 +45,17 @@ const routes = [
       props: true,
       component: AdminDestinations
     },
+    {
+      name: 'AdminBlog',
+      path: 'blog',
+      props: true,
+      component: AdminBlog
+    }
   ] },
   { path: "/spacecrafts", name: "SpacecraftsPage", component: SpacecraftsPage },
   { path: "/destinations", name: "DestionationsPage", component: DestinationsPage },
   { path: "/missions", name: "MissionsPage", component: MissionsPage },
+  { path: "/blog", name: "BlogPage", component: BlogPage },
   { path: "*", name: "error", component: ErrorPage }
 ]
 

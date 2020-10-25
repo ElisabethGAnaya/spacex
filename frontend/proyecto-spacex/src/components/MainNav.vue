@@ -64,7 +64,7 @@
             Missions
           </router-link>
           
-          <router-link class="navbar-item  has-text-white" :to="{ name:'/'}">
+          <router-link class="navbar-item  has-text-white" :to="{ name:'BlogPage'}">
             Blog
           </router-link>
         </div>

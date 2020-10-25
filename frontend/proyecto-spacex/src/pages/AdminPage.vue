@@ -12,7 +12,7 @@
               <li><router-link to="/admin/users">Users</router-link></li>
               <li><router-link to="/admin/spacecrafts">Spacecrafts</router-link></li>
               <li><router-link to="/admin/destinations">Destinations</router-link></li>
-              <li><a>Blog</a></li>
+              <li><router-link to="/admin/blog">Blog</router-link></li>
             </ul>
           </aside>
         </div>
