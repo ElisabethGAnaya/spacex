@@ -136,6 +136,7 @@ export default {
   },
   methods: {
     logout(){
+      window.localStorage.removeItem("token")
       this.$store.commit("logout")
     }
   }
