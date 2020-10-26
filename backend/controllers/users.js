@@ -52,6 +52,23 @@ async function deleteUser(req,res){
 }
 
 
+async function updateUser(req,res){
+  let id = req.params.id
+  let updateFields = req.body
+  let foundUser =  await Users.findOneAndUpdate({_id:id}, updateFields,{new:true}).exec()
+
+  if(!foundUser) {
+    res.status(404).json({ message: "user not found"})
+  }
+
+  if(foundUser) {
+    let updatedUser = foundUser.toJSON()
+    delete updatedUser.password
+    res.json(updatedUser)
+  }
+}
+
+
 router.route('/')
       .get(listUsers)
       .post(createUser)
@@ -61,5 +78,7 @@ router.route('/')
 router.route('/:id')
       .get(getUser)
       .delete(deleteUser)
+      .put(updateUser)
+
 
 module.exports = router
