@@ -172,19 +172,35 @@
           </div>
         </div>
 
-        <div class="field is-grouped">
-          <p class="control">
+        <div v-if="!editMode" class="field is-grouped">
+          <p  class="control">
             <button class="button is-link" @click.prevent="saveUser">
               Save
             </button>
           </p>
           <p class="control">
-            <button class="button is-light" @click.prevent="cancel">
+            <button  class="button is-light" @click.prevent="cancel">
               Cancel
             </button>
           </p>
         </div>
+
+        <div v-else class="field is-grouped">
+          <p  class="control">
+            <button class="button is-link" @click.prevent="updateUser">
+              Submit Changes
+            </button>
+          </p>
+          <p class="control">
+            <button  class="button is-light" @click.prevent="cancelUpdate">
+              Go Back
+            </button>
+          </p>
+        </div>
+
+        
       </div>
+      
 
       <div class="column is-half">
         <h1 class="title is-size-5 has-text-link">Users</h1>
@@ -253,7 +269,9 @@ export default {
         confirmation: "",
       },
       users:[],
-      showUserList: false
+      showUserList: false,
+      editMode: false,
+      user_id:""
     };
   },
   created() {
@@ -277,28 +295,35 @@ export default {
       }
     },
     clearFields(){
-      this.user.firstname = ""
-      this.user.lastname = ""
-      this.user.email = ""
-      this.user.password = ""
-      this.user.height = ""
-      this.user.weight = ""
-      this.user.confirmation = ""
-      this.user.age = ""
-      this.user.profile = ""
-      this.firstname=""
+      // this.user.firstname = ""
+      // this.user.lastname = ""
+      // this.user.email = ""
+      // this.user.password = ""
+      // this.user.height = ""
+      // this.user.weight = ""
+      // this.user.confirmation = ""
+      // this.user.age = ""
+      // this.user.profile = ""
+      // this.user.phone = ""
+      
+     this.user = {}
+
     },
     cancel(){
-      this.clearFields
-      console.log("nice")
+      this.clearFields()
     },
     async editUser(id){
-      try{
-        let user = await this.$http.get("/users/"+id)
-        console.log(user.data)
-      }catch(e){
-        console.log(e)
-      }
+      // try{
+      //   let user = await this.$http.get("/users/"+id)
+      //   console.log(user.data)
+      // }catch(e){
+      //   console.log(e)
+      // }
+      this.editMode = true
+      const index = this.users.findIndex((user)=> user._id === id)
+      let user = this.users[index]
+      this.user = user
+      this.user_id = id
     },
     async deleteUser(id){
       try{
@@ -306,6 +331,22 @@ export default {
         const userIndex = this.users.findIndex(user => user._id === id)
         this.users.splice(userIndex,1)
         alert("user has been deleted")
+      }catch(e){
+        console.log(e)
+      }
+    },
+    cancelUpdate(){
+      this.clearFields()
+      this.editMode = false
+    },
+    async updateUser(){
+      let id = this.user_id
+      let updatedUser = this.user
+      try{
+        await this.$http.put("/users/"+id, updatedUser)
+        alert("User has been updated!")
+        this.clearFields()
+        this.editMode = false
       }catch(e){
         console.log(e)
       }
