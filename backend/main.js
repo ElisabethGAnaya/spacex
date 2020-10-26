@@ -18,6 +18,7 @@ const app = express()
 
 const userRoutes = require('./controllers/users')
 const authRoutes = require('./controllers/auth')
+const spacecraftRoutes = require('./controllers/spacecrafts')
 
 //**********Init Function**********//
 
@@ -52,6 +53,7 @@ app.get('/', (req,res) => {
 
 app.use('/users', userRoutes)
 app.use('/auth', authRoutes)
+app.use('/spacecrafts', spacecraftRoutes)
 
 
 app.get('*', (req,res) => {
