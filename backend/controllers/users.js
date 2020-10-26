@@ -31,7 +31,24 @@ async function createUser(req,res) {
 
 
 async function getUser(req,res){
-  
+  let id = req.params.id
+  const user = await Users.findById({_id:id}).exec()
+  if(!user){
+    res.status(404).json({message: "user not found"})
+  }
+  res.json(user)
+}
+
+async function deleteUser(req,res){
+  let id = req.params.id
+
+  try {
+    let deleted = await Users.findOneAndDelete({_id: id})
+    res.json({message: "User was successfully deleted"})
+  } catch (e) {
+    console.info(e)
+    res.status(404).json({ message: "user not found or cant' be deleted"})
+  }
 }
 
 
@@ -43,5 +60,6 @@ router.route('/')
 
 router.route('/:id')
       .get(getUser)
+      .delete(deleteUser)
 
 module.exports = router
