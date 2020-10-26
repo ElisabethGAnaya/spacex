@@ -179,7 +179,7 @@
             </button>
           </p>
           <p class="control">
-            <button class="button is-light">
+            <button class="button is-light" @click.prevent="cancel">
               Cancel
             </button>
           </p>
@@ -192,7 +192,7 @@
 
         <!-- Card 1 -->
         <div v-show="showUserList">
-          <div v-for="(user,index) in users" :key="index" class="card m-4">
+          <div v-for="(user,index) in users" :key="user._id" class="card m-4">
             <div class="card-content">
               <p class="title is-4">
                 {{user.firstname}} <span class="tag is-danger">Inactive</span>
@@ -203,30 +203,30 @@
                 <tbody>
                   <tr>
                     <th>Email</th>
-                    <td>tom@gmail.com</td>
+                    <td>{{user.email}}</td>
                   </tr>
                   <tr>
                     <th>Phone</th>
-                    <td>777 66 55 44</td>
+                    <td>{{user.phone}}</td>
                   </tr>
                   <tr>
                     <th>Weight (kg)</th>
-                    <td>70</td>
+                    <td>{{user.weight}}</td>
                   </tr>
                   <tr>
                     <th>Height (cm)</th>
-                    <td>177</td>
+                    <td>{{user.height}}</td>
                   </tr>
                   <tr>
                     <th>Age</th>
-                    <td>28</td>
+                    <td>{{user.age}}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <footer class="card-footer">
-              <a href="#" class="card-footer-item">Edit</a>
-              <a href="#" class="card-footer-item">Delete</a>
+              <a class="card-footer-item" @click.prevent="editUser(user._id)">Edit</a>
+              <a class="card-footer-item" @click.prevent="deleteUser(user._id)">Delete</a>
             </footer>
           </div>
         </div>
@@ -251,22 +251,10 @@ export default {
         age: "",
         profile: "",
         confirmation: "",
-        profile: "",
       },
       users:[],
       showUserList: false
     };
-  },
-  methods: {
-    async saveUser() {
-      try {
-        await this.$http.post("/users", this.user);
-        alert("New user has been created");
-      } catch (e) {
-        console.log(e);
-        alert("Ups, looks like something went wrong. Please try again later");
-      }
-    },
   },
   created() {
     this.$http.get("/users").then((users) => {
@@ -277,6 +265,50 @@ export default {
   methods: {
     listUsers(){
       this.showUserList = !this.showUserList
+    },
+    async saveUser() {
+      try {
+        await this.$http.post("/users", this.user);
+        this.users.unshift(this.user)
+        alert("New user has been created");
+      } catch (e) {
+        console.log(e);
+        alert("Ups, looks like something went wrong. Please try again later");
+      }
+    },
+    clearFields(){
+      this.user.firstname = ""
+      this.user.lastname = ""
+      this.user.email = ""
+      this.user.password = ""
+      this.user.height = ""
+      this.user.weight = ""
+      this.user.confirmation = ""
+      this.user.age = ""
+      this.user.profile = ""
+      this.firstname=""
+    },
+    cancel(){
+      this.clearFields
+      console.log("nice")
+    },
+    async editUser(id){
+      try{
+        let user = await this.$http.get("/users/"+id)
+        console.log(user.data)
+      }catch(e){
+        console.log(e)
+      }
+    },
+    async deleteUser(id){
+      try{
+        await this.$http.delete("/users/"+id)
+        const userIndex = this.users.findIndex(user => user._id === id)
+        this.users.splice(userIndex,1)
+        alert("user has been deleted")
+      }catch(e){
+        console.log(e)
+      }
     }
   }
 };
