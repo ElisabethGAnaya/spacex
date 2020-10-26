@@ -11,7 +11,5 @@ module.exports = new mongoose.Schema({
   height: { type: Number, required: false },
   age: { type: Number, required: false },
   profile: { type: String, required: false, default: 'user' },
-  status: { type: Number, default: 1 },
   confirmation: { type: Boolean, default: false },
-  enabled: { type: Boolean, default: true }
 })
