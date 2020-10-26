@@ -47,19 +47,21 @@ async function deleteSpacecraft(req,res){
 
 
 async function updateSpacecraft(req, res) {
-  const spacecraftId = req.params.id
+  let spacecraftId = req.params.id
 
-  let updatedSpacecraft = {
-    name: req.body.name,
-    image: req.body.image,
-    max_load: req.body.max_load,
-    height: req.body.height,
-    diameter: req.body.diameter,
-    passengers: req.body.passengers,
-    description: req.body.description,
-    mood: req.body.mood,
-    state: req.body.state
-  }
+  let updatedSpacecraft = req.body
+
+  // {
+  //   name: req.body.name,
+  //   image: req.body.image,
+  //   max_load: req.body.max_load,
+  //   height: req.body.height,
+  //   diameter: req.body.diameter,
+  //   passengers: req.body.passengers,
+  //   description: req.body.description,
+  //   mood: req.body.mood,
+  //   state: req.body.state
+  // }
 
   let updatedItem = await Spacecrafts.findOneAndUpdate({ _id: spacecraftId }, updatedSpacecraft).exec()
 
@@ -68,7 +70,7 @@ async function updateSpacecraft(req, res) {
   }
 
   if (!updatedItem) {
-    res.status(404).json({ message: `El elemento con id ${spacecraftId} no se ha encontrado.` })
+    res.status(404).json({ message: "Spacecraft not found" })
   }
 }
 

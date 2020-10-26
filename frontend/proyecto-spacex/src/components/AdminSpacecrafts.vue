@@ -115,8 +115,8 @@
                       v-model="spacecraft.mood"
                     >
                       <option value="" disabled selected>Mood</option>
-                      <option value="false">Free</option>
-                      <option value="true">In Orbit</option>
+                      <option value="free">Free</option>
+                      <option value="in orbit">In Orbit</option>
                     </select>
                   </div>
                   </div>
@@ -129,8 +129,8 @@
                       v-model="spacecraft.state"
                     >
                       <option value="" disabled selected>State</option>
-                      <option value="false">Active</option>
-                      <option value="true">Inactive</option>
+                      <option value="active">Active</option>
+                      <option value="inactive">Inactive</option>
                     </select>
                   </div>
                   </div>
@@ -151,14 +151,27 @@
                 </div>
               </div>
 
-              <div class="field is-grouped">
+              <div v-if="!editMode" class="field is-grouped">
                 <p class="control">
                   <button class="button is-link"  @click.prevent="saveSpacecraft">
                     Save
                   </button>
                 </p>
                 <p class="control">
-                  <button class="button is-light">
+                  <button class="button is-light" @click.prevent="cancel">
+                    Cancel
+                  </button>
+                </p>
+              </div>
+
+              <div v-if="editMode" class="field is-grouped">
+                <p class="control">
+                  <button class="button is-link"  @click.prevent="updateSpacecraft">
+                    Save Changes
+                  </button>
+                </p>
+                <p class="control">
+                  <button class="button is-light" @click.prevent="cancelUpdate">
                     Cancel
                   </button>
                 </p>
@@ -168,9 +181,10 @@
 
             <div class="column is-half">
               <h1 class="title is-size-5 has-text-link">Spacecrafts</h1>
+              <button class="button is-coral" @click="listSpacecrafts">List Spacecrafts</button>
               
               <!-- Card 1 -->
-              <div>
+              <div v-show="showSpacecraftList">
                 <div
                   v-for="spacecraft in spacecrafts" 
                   :key="spacecraft._id" 
@@ -180,12 +194,17 @@
                     <div class="media">
                       <div class="media-left">
                         <figure class="image is-128x128">
-                          <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+                          <img :src="spacecraft.image">
                         </figure>
                       </div>
                       <div class="media-content">
                         <p class="title is-4"> {{spacecraft.name}} </p>
-                        <p class="subtitle is-6"><span class="tag is-success">Active</span> <span class="tag is-link">In Orbit</span></p>
+                        <p class="subtitle is-6">
+                          <span v-if="spacecraft.state === 'active'" class="tag is-success mr-1">Active</span>
+                          <span v-if="spacecraft.state === 'inactive'" class="tag is-danger mr-1">Inactive</span>
+                          <span v-if="spacecraft.mood === 'free'" class="tag is-dark">Free</span>
+                          <span v-if="spacecraft.mood === 'in orbit'" class="tag is-link">In Orbit</span>
+                        </p>
                       </div>
                     </div>
                     <table class="table is-fullwidth">
@@ -214,7 +233,7 @@
                     </table> 
                   </div>
                   <footer class="card-footer">
-                    <a href="#" class="card-footer-item">Edit</a>
+                    <a href="#" class="card-footer-item" @click.prevent="editSpacecraft(spacecraft._id)">Edit</a>
                     <a href="#" class="card-footer-item" @click.prevent="deleteSpacecraft(spacecraft._id)">Delete</a>
                   </footer>
                 </div>
@@ -242,7 +261,10 @@ export default {
         mood: "",
         state: "",
       },
-      spacecrafts:[]
+      spacecrafts:[],
+      showSpacecraftList: false,
+      editMode: false,
+      spacecraft_id:""
     };
   },
   created() {
@@ -252,6 +274,9 @@ export default {
     })
   },
   methods: {
+    listSpacecrafts(){
+      this.showSpacecraftList = !this.showSpacecraftList
+    },
     async saveSpacecraft() {
       try {
         await this.$http.post("/spacecrafts", this.spacecraft);
@@ -262,12 +287,41 @@ export default {
         alert("Ups, looks like something went wrong. Please try again later");
       }
     },
+    clearFields(){
+     this.spacecraft = {}
+    },
+    cancel(){
+      this.clearFields()
+    },
     async deleteSpacecraft(id){
       try{
         await this.$http.delete("/spacecrafts/"+id)
         const spacecraftIndex = this.spacecrafts.findIndex(spacecraft => spacecraft._id === id)
         this.spacecrafts.splice(spacecraftIndex,1)
         alert("Spacecraft has been deleted")
+      }catch(e){
+        console.log(e)
+      }
+    },
+    async editSpacecraft(id){
+      this.editMode = true
+      const index = this.spacecrafts.findIndex((spacecraft)=> spacecraft._id === id)
+      let spacecraft = this.spacecrafts[index]
+      this.spacecraft = spacecraft
+      this.spacecraft_id = id
+    },
+    cancelUpdate(){
+      this.clearFields()
+      this.editMode = false
+    },
+    async updateSpacecraft(){
+      let id = this.spacecraft_id
+      let updatedSpacecraft = this.spacecraft
+      try{
+        await this.$http.put("/spacecrafts/"+id, updatedSpacecraft)
+        alert("Spacecraft has been updated!")
+        this.clearFields()
+        this.editMode = false
       }catch(e){
         console.log(e)
       }

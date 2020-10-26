@@ -204,17 +204,19 @@
 
       <div class="column is-half">
         <h1 class="title is-size-5 has-text-link">Users</h1>
-        <button class="button is-light" @click="listUsers">LIST USERS</button>
+        <button class="button is-coral" @click="listUsers">List Users</button>
 
         <!-- Card 1 -->
         <div v-show="showUserList">
           <div v-for="user in users" :key="user._id" class="card m-4">
             <div class="card-content">
               <p class="title is-4">
-                {{user.firstname}} <span class="tag is-danger">Inactive</span>
-                <span class="tag is-dark">Free</span>
+                {{user.firstname}} 
+                <span v-if="!user.confirmation" class="tag is-danger mr-1">Decline</span>
+                <span v-if="user.confirmation" class="tag is-success mr-1">Accept</span>
+                <span v-if="user.profile === 'user'" class="tag is-link">User</span>
+                <span v-if="user.profile === 'admin'" class="tag is-dark">Admin</span>
               </p>
-              <!-- <p class="subtitle is-6">tom@gmail.com</p> -->
               <table class="table is-fullwidth">
                 <tbody>
                   <tr>

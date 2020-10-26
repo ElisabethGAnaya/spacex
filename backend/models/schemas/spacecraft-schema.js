@@ -9,6 +9,6 @@ module.exports = new mongoose.Schema({
   diameter: { type: Number, required: false },
   passengers: { type: Number, required: false },
   description: { type: String, required: false },
-  mood: { type: Boolean, default: false },
-  state: { type: Boolean, default: false }
+  mood: { type: String, required: false, default: 'active' },
+  state: { type: String, required: false, default: 'free' }
 })

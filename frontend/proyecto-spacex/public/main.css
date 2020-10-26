@@ -6,6 +6,18 @@
   background: #000a14;
 }
 
+.is-coral {
+  background: coral;
+  border: coral;
+  color: #fff;
+}
+
+.is-coral:hover {
+  background: rgb(248, 119, 71);
+  border: rgb(248, 119, 71);
+  color: #fff;
+}
+
 /* Login */
 .vue-part {
   height: 100vh;
