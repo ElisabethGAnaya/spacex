@@ -10,7 +10,7 @@
                 <div class="column is-half">
                   <div class="field ">
                   <div class="control has-icons-left">
-                    <input class="input" type="text" placeholder="Firstname">
+                    <input v-model="user.firstname" class="input" type="text" placeholder="Firstname">
                     <span class="icon is-small is-left">
                       <i class="fas fa-user"></i>
                     </span>
@@ -21,7 +21,7 @@
                  <div class="column is-half">
                 <div class="field ">
                   <div class="control has-icons-left">
-                    <input class="input" type="text" placeholder="Lastname">
+                    <input v-model="user.lastname" class="input" type="text" placeholder="Lastname">
                     <span class="icon is-small is-left">
                       <i class="fas fa-user"></i>
                     </span>
@@ -34,7 +34,7 @@
                 <div class="column is-half">
                   <div class="field ">
                   <div class="control has-icons-left">
-                    <input class="input" type="email" placeholder="Email">
+                    <input v-model="user.email" class="input" type="email" placeholder="Email">
                     <span class="icon is-small is-left">
                       <i class="fas fa-envelope"></i>
                     </span>
@@ -45,7 +45,7 @@
                  <div class="column is-half">
                 <div class="field ">
                   <div class="control has-icons-left">
-                    <input class="input" type="text" placeholder="Phone">
+                    <input v-model="user.phone" class="input" type="text" placeholder="Phone">
                     <span class="icon is-small is-left">
                       <i class="fas fa-mobile-alt"></i>
                     </span>
@@ -54,11 +54,12 @@
                 </div>
               </div>
 
+
               <div class="columns">
                 <div class="column is-halft">
                   <div class="field ">
                   <div class="control has-icons-left">
-                    <input class="input" type="number" placeholder="Weight (kg)">
+                    <input v-model="user.weight" class="input" type="number" placeholder="Weight (kg)">
                     <span class="icon is-small is-left">
                       <i class="fas fa-weight"></i>
                     </span>
@@ -69,7 +70,7 @@
                 <div class="column is-half">
                   <div class="field ">
                   <div class="control has-icons-left">
-                    <input class="input" type="number" placeholder="Height (cm)">
+                    <input v-model="user.height" class="input" type="number" placeholder="Height (cm)">
                     <span class="icon is-small is-left">
                       <i class="fas fa-arrows-alt-v"></i>
                     </span>
@@ -82,7 +83,7 @@
                 <div class="column is-halft">
                   <div class="field ">
                   <div class="control has-icons-left">
-                    <input class="input" type="number" placeholder="Age">
+                    <input v-model="user.age" class="input" type="number" placeholder="Age">
                     <span class="icon is-small is-left">
                       <i class="fas fa-birthday-cake"></i>
                     </span>
@@ -93,10 +94,10 @@
                 <div class="column is-half">
                   <div class="field">
                   <div class="select is-fullwidth">
-                    <select>
-                      <option>Mood</option>
-                      <option>Free</option>
-                      <option>In Orbit</option>
+                     <select name="user_profile" v-model="user.profile" required>
+                      <option value="" disabled selected>User profile</option>
+                      <option value="user">User</option>
+                      <option value="admin">Admin</option>
                     </select>
                   </div>
                   </div>
@@ -107,19 +108,30 @@
                 <div class="column is-half">
                   <div class="field">
                   <div class="select is-fullwidth">
-                    <select>
-                      <option>State Account</option>
-                      <option>Active</option>
-                      <option>Inactive</option>
+                    <select name="confirmation_status" v-model="user.confirmation" required>
+                      <option value="" disabled selected>Confirmation status</option>
+                      <option value="true">Accept</option>
+                      <option value="false">Decline</option>
                     </select>
                   </div>
                   </div>
                 </div>
+                 <div class="column is-half">
+                  <div class="field ">
+                  <div class="control has-icons-left">
+                    <input v-model="user.password" class="input" type="password" placeholder="password">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                  </div>
+                  </div>
+                </div>
               </div>
+  
 
               <div class="field is-grouped">
                 <p class="control">
-                  <button class="button is-link">
+                  <button class="button is-link" @click.prevent="saveUser">
                     Save
                   </button>
                 </p>
@@ -215,6 +227,34 @@
 
 <script>
 export default {
-    name: 'AdminUsers'
+    name: 'AdminUsers',
+    data(){
+      return {
+        user: {
+          firstname:"",
+          lastname:"",
+          phone:"",
+          email:"",
+          password:"",
+          weight:"",
+          height:"",
+          age:"",
+          profile:"",
+          confirmation:"",
+          profile:""
+        }
+      }
+    },
+    methods:{
+      async saveUser(){
+        try {
+          await this.$http.post("/users", this.user)
+          alert("New user has been created")
+        }catch(e){
+          console.log(e)
+          alert("Ups, looks like something went wrong. Please try again later")
+        }
+      },
+    }
 }
 </script>
