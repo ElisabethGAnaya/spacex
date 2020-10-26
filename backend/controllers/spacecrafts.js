@@ -27,7 +27,7 @@ async function createSpacecraft(req,res) {
 async function getSpacecraft(req,res){
   let id = req.params.id
   const spacecraft = await Spacecrafts.findById({_id:id}).exec()
-  if(!user){
+  if(!spacecraft){
     res.status(404).json({message: "Spacecraft not found"})
   }
   res.json(spacecraft)
@@ -50,18 +50,6 @@ async function updateSpacecraft(req, res) {
   let spacecraftId = req.params.id
 
   let updatedSpacecraft = req.body
-
-  // {
-  //   name: req.body.name,
-  //   image: req.body.image,
-  //   max_load: req.body.max_load,
-  //   height: req.body.height,
-  //   diameter: req.body.diameter,
-  //   passengers: req.body.passengers,
-  //   description: req.body.description,
-  //   mood: req.body.mood,
-  //   state: req.body.state
-  // }
 
   let updatedItem = await Spacecrafts.findOneAndUpdate({ _id: spacecraftId }, updatedSpacecraft).exec()
 

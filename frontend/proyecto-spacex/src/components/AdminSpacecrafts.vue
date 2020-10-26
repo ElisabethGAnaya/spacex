@@ -286,6 +286,7 @@ export default {
         console.log(e);
         alert("Ups, looks like something went wrong. Please try again later");
       }
+      this.clearFields()
     },
     clearFields(){
      this.spacecraft = {}
