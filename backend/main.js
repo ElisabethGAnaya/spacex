@@ -19,7 +19,7 @@ const app = express()
 const userRoutes = require('./controllers/users')
 const authRoutes = require('./controllers/auth')
 const spacecraftRoutes = require('./controllers/spacecrafts')
-
+const articleRoutes = require('./controllers/articles')
 //**********Init Function**********//
 
 function connectDB() {
@@ -54,6 +54,7 @@ app.get('/', (req,res) => {
 app.use('/users', userRoutes)
 app.use('/auth', authRoutes)
 app.use('/spacecrafts', spacecraftRoutes)
+app.use('/articles', articleRoutes)
 
 
 app.get('*', (req,res) => {
