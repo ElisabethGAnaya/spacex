@@ -215,7 +215,7 @@
                   </div>
                   <footer class="card-footer">
                     <a href="#" class="card-footer-item">Edit</a>
-                    <a href="#" class="card-footer-item">Delete</a>
+                    <a href="#" class="card-footer-item" @click.prevent="deleteSpacecraft(spacecraft._id)">Delete</a>
                   </footer>
                 </div>
 

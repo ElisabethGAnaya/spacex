@@ -204,11 +204,11 @@
 
       <div class="column is-half">
         <h1 class="title is-size-5 has-text-link">Users</h1>
-        <button class="btn" @click="listUsers">LIST USERS</button>
+        <button class="button is-light" @click="listUsers">LIST USERS</button>
 
         <!-- Card 1 -->
         <div v-show="showUserList">
-          <div v-for="(user,index) in users" :key="user._id" class="card m-4">
+          <div v-for="user in users" :key="user._id" class="card m-4">
             <div class="card-content">
               <p class="title is-4">
                 {{user.firstname}} <span class="tag is-danger">Inactive</span>
