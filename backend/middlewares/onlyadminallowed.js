@@ -1,6 +1,13 @@
+
+
+
 async function onlyAdminAllowed(req, res, next) {
+    const PASSWORD = process.env.TOKEN_PASSWORD
     let users = req.app.get('users')
     let token = req.token
+
+    console.info(req.token)
+    console.info(token===undefined)
 
     if (token === undefined) {
         return res.status(403).json({
@@ -8,14 +15,14 @@ async function onlyAdminAllowed(req, res, next) {
             message: 'Debes estar autenticado para usar este servicio.'
         });
     }
-
-    if (token) {
+    console.info("hello")
+    if(token !== undefined) {
         try {
-            let decodedToken = await jwt.verify(req.token, process.env.PASSPHRASE)
-
+            let decodedToken = await jwt.verify(req.token, PASSWORD)
+            console.info(decodedToken)
             //comprobar si el usuario sigue existiendo en la base datos
             let foundUser = users.find((user) => {
-                return user.id === decodedToken._id && user.enabled
+                return user.id === decodedToken._id
             })
 
             if (!foundUser) {

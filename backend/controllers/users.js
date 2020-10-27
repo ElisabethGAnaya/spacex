@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 const Users = require('../models/users')
 const sha512 = require('js-sha512')
+const onlyAdminMiddleware = require('../middlewares/onlyadminallowed')
+
+
 
 
 async function listUsers(req,res) {
@@ -70,7 +73,7 @@ async function updateUser(req,res){
 
 
 router.route('/')
-      .get(listUsers)
+      .get(onlyAdminMiddleware,listUsers)
       .post(createUser)
 
 
