@@ -4,30 +4,30 @@
  
   <div class="columns is-multiline p-6">
 
-    <div class="column is-3">
+    <div v-for="article in articles" :key="article._id" class="column is-3">
       <div class="card card-blog">
         <div class="card-image">
           <figure class="image is-4by3">
-            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+            <img :src="article.image" alt="Placeholder image">
           </figure>
         </div>
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <p class="title is-4"><a href="#">Title</a></p>
-              <p class="subtitle is-6 has-text-white">Subtitle</p>
+              <p class="title is-4"><a href="#">{{article.title}}</a></p>
             </div>
           </div>
 
           <div class="content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus nec iaculis mauris...</p>
+            <p>{{article.excerpt}}</p>
 
-            <time class="mt-4" datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            <time class="mt-4" datetime="2016-1-1">{{article.published}}</time>
           </div>
         </div>
       </div>
     </div>
+
+    
     
   </div>
 
@@ -38,10 +38,15 @@
 <script>
 export default {
   name: "BlogPage",
-  data() {
+  data(){
     return {
-      
+      articles:[]
     }
+  },
+  created(){
+    this.$http.get("/articles").then((articles) => {
+      this.articles =  articles.data.reverse()
+  })
   }
 }
 </script>
