@@ -96,5 +96,5 @@
 
 .card-blog .title a:hover {
   color: #3273dc;
-  text-decoration: underline;
+  font-style: italic;
 }
