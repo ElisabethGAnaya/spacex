@@ -51,7 +51,7 @@ const routes = [
       props: true,
       component: AdminBlog
     }
-  ] },
+  ],meta: { private: true, allowedProfiles: ['admin'] } },
   { path: "/spacecrafts", name: "SpacecraftsPage", component: SpacecraftsPage },
   { path: "/destinations", name: "DestionationsPage", component: DestinationsPage },
   { path: "/missions", name: "MissionsPage", component: MissionsPage },
