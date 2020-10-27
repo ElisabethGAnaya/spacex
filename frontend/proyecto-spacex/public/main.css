@@ -18,6 +18,16 @@
   color: #fff;
 }
 
+/* Missions */
+
+.hero-mission {
+  background-image: url('./images/astronaut-3840x2160-stars-space-galaxy-5k-17812.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: relative;
+}
+
 /* Login */
 .vue-part {
   height: 100vh;
@@ -84,8 +94,7 @@
 }
 
 .card-blog:hover {
-  /* background: #1c2732; */
-  top: -4px;
+  top: -5px;
   box-shadow: 0 0 6px 2px rgba(255,255,255, 0.1);
   transition: 0.3s;
 }
