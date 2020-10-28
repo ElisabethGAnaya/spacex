@@ -81,7 +81,7 @@ export default {
       try{
         const response = await this.$http.post("/auth/login", this.loginData)
         window.localStorage.setItem("token", response.data.token)
-        this.$store.commit("login")
+        this.$store.commit("login", response.data.token)
         this.$router.push({ name: "HomePage"})
       }catch(e){
         console.log(e)

@@ -119,10 +119,7 @@ export default {
       });
     });
   },
-  data() {
-    return {
-    }
-  },
+ 
   computed: {
     isAuth(){
       return this.$store.state.isAuth

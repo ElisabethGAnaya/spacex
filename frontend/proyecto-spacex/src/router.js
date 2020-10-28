@@ -14,6 +14,9 @@ import DestinationsPage from '@/pages/DestinationsPage'
 import MissionsPage from '@/pages/MissionsPage'
 import BlogPage from '@/pages/BlogPage'
 import ErrorPage from '@/pages/ErrorPage'
+import BlogArticle from '@/pages/BlogArticle'
+
+
 
 // AdminPage
 import AdminUsers from '@/components/AdminUsers'
@@ -58,6 +61,7 @@ const routes = [
   { path: "/destinations", name: "DestionationsPage", component: DestinationsPage },
   { path: "/missions", name: "MissionsPage", component: MissionsPage },
   { path: "/blog", name: "BlogPage", component: BlogPage },
+  { path: "/blog/:id", name: "BlogArticle", component: BlogArticle},
   { path: "*", name: "error", component: ErrorPage }
 ]
 
@@ -75,11 +79,13 @@ const router = new Router({ routes, mode: "history" })
 //   if (to.matched.some(route => route.meta.private)) {
 //       const isAuth = store.state.isAuth
 //       console.info(isAuth)
+//       console.info(store.state.profile)
+//       console.info(window.localStorage.getItem("token"))
 
 //       if (isAuth) {
 //           if (to.meta.hasOwnProperty('allowedProfiles')) {
 //               console.info(to.meta.allowedProfiles)
-//               if (!to.meta.allowedProfiles.includes(store.state.user.profile)) {
+//               if (!to.meta.allowedProfiles.includes(store.state.profile)) {
 //                   alert('No tienes permitida la entrada a esta ruta')
 //                   next('/')
 //               }

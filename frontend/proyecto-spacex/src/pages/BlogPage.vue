@@ -8,13 +8,15 @@
       <div class="card card-blog">
         <div class="card-image">
           <figure class="image is-4by3">
+            <router-link :to="{ name:'BlogArticle', params: {id: article._id }}">
             <img :src="article.image" alt="Placeholder image">
+            </router-link>
           </figure>
         </div>
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <p class="title is-4"><a href="#">{{article.title}}</a></p>
+              <p class="title is-4"><router-link :to="{ name:'BlogArticle', params: {id: article._id }}">{{article.title}}</router-link></p>
             </div>
           </div>
 
