@@ -277,7 +277,7 @@ export default {
     };
   },
   created() {
-    this.$http.get("/users").then((users) => {
+    this.$http.get("/users",{headers:{Authorization: 'Bearer '+window.localStorage.getItem('token')}}).then((users) => {
       // con reverse invierto el orden del array
       this.users =  users.data.reverse()
     })
@@ -297,17 +297,6 @@ export default {
       }
     },
     clearFields(){
-      // this.user.firstname = ""
-      // this.user.lastname = ""
-      // this.user.email = ""
-      // this.user.password = ""
-      // this.user.height = ""
-      // this.user.weight = ""
-      // this.user.confirmation = ""
-      // this.user.age = ""
-      // this.user.profile = ""
-      // this.user.phone = ""
-      
      this.user = {}
 
     },
@@ -315,18 +304,13 @@ export default {
       this.clearFields()
     },
     async editUser(id){
-      // try{
-      //   let user = await this.$http.get("/users/"+id)
-      //   console.log(user.data)
-      // }catch(e){
-      //   console.log(e)
-      // }
       this.editMode = true
       const index = this.users.findIndex((user)=> user._id === id)
       let user = this.users[index]
       this.user = user
       this.user_id = id
     },
+    
     async deleteUser(id){
       try{
         await this.$http.delete("/users/"+id)

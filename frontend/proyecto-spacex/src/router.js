@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
+
 
 /***************Components***************/
 import HomePage from '@/pages/HomePage'
@@ -51,7 +53,7 @@ const routes = [
       props: true,
       component: AdminBlog
     }
-  ] },
+  ],meta: { private: true, allowedProfiles: ['admin'] } },
   { path: "/spacecrafts", name: "SpacecraftsPage", component: SpacecraftsPage },
   { path: "/destinations", name: "DestionationsPage", component: DestinationsPage },
   { path: "/missions", name: "MissionsPage", component: MissionsPage },
@@ -60,9 +62,38 @@ const routes = [
 ]
 
 
+
+//////////////////////////
+
+
 Vue.use(Router)
 
 const router = new Router({ routes, mode: "history" })
+
+
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some(route => route.meta.private)) {
+//       const isAuth = store.state.isAuth
+//       console.info(isAuth)
+
+//       if (isAuth) {
+//           if (to.meta.hasOwnProperty('allowedProfiles')) {
+//               console.info(to.meta.allowedProfiles)
+//               if (!to.meta.allowedProfiles.includes(store.state.user.profile)) {
+//                   alert('No tienes permitida la entrada a esta ruta')
+//                   next('/')
+//               }
+//           }
+
+//           next()
+//       } else {
+//           next("/login")
+//       }
+//   } else {
+//       next()
+//   }
+// })
+
 
 
 export default  router

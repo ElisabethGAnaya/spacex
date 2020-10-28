@@ -7,4 +7,5 @@ module.exports = new mongoose.Schema({
   body: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
   excerpt: { type: String, required: true },
+  published:{ type: Number, default: Date.now}
 })

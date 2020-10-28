@@ -19,15 +19,12 @@ async function login(req,res){
     res.status(401).json({message: "User hasn't been found or confirmed yet. Please contact administration"})
     return
   }
-  // if (user.confirmation === false){
-  //   res.json({message: "You account has been registered, but has not been confirmed yet. Please try again later or contact administration"})
-  //   return
-  // }
-
+  
   const payload = {
     id: user._id,
     firstname: user.firstname,
-    lastname: user.lastname
+    lastname: user.lastname,
+    profile: user.profile
   }
 
   const token = jwt.sign(payload, PASSWORD)

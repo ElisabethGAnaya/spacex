@@ -18,6 +18,7 @@ async function createArticle(req,res){
   let article = req.body
   article.slug = slugify(article.title)
   article.excerpt = article.body.substring(0,50)+"...."
+  // article.published = Date.now()
 
    try {
      let newArticle = await new Articles(article).save()

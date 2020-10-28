@@ -1,5 +1,8 @@
+const jwt = require("jsonwebtoken")
+const User = require('../models/users')
+
 async function onlyAdminAllowed(req, res, next) {
-    let users = req.app.get('users')
+    const PASSWORD = process.env.TOKEN_PASSWORD
     let token = req.token
 
     if (token === undefined) {
@@ -9,14 +12,12 @@ async function onlyAdminAllowed(req, res, next) {
         });
     }
 
-    if (token) {
+    if (token !== undefined) {
         try {
-            let decodedToken = await jwt.verify(req.token, process.env.PASSPHRASE)
+            let decodedToken = await jwt.verify(req.token, PASSWORD)
 
             //comprobar si el usuario sigue existiendo en la base datos
-            let foundUser = users.find((user) => {
-                return user.id === decodedToken._id && user.enabled
-            })
+            let foundUser = await User.findOne({ id: token._id }).exec()
 
             if (!foundUser) {
                 res.status(403).json({ success: false, message: 'El usuario autenticado ya no está en el sistema' })

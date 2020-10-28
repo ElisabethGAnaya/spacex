@@ -20,6 +20,9 @@ const userRoutes = require('./controllers/users')
 const authRoutes = require('./controllers/auth')
 const spacecraftRoutes = require('./controllers/spacecrafts')
 const articleRoutes = require('./controllers/articles')
+const destinationRoutes = require('./controllers/destinations')
+
+
 //**********Init Function**********//
 
 function connectDB() {
@@ -43,7 +46,7 @@ async function init(){
 
 app.use(express.json())
 app.use(cors())
-
+app.use(bearerToken())
 
 //**********Routes***************//
 
@@ -55,6 +58,7 @@ app.use('/users', userRoutes)
 app.use('/auth', authRoutes)
 app.use('/spacecrafts', spacecraftRoutes)
 app.use('/articles', articleRoutes)
+app.use('/destinations', destinationRoutes)
 
 
 app.get('*', (req,res) => {
