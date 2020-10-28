@@ -18,7 +18,7 @@ async function createArticle(req,res){
   let article = req.body
   article.slug = slugify(article.title)
   article.excerpt = article.body.substring(0,50)+"...."
-  // article.published = Date.now()
+ 
 
    try {
      let newArticle = await new Articles(article).save()
@@ -29,14 +29,25 @@ async function createArticle(req,res){
  }
 
 
+ async function getArticle(req,res){
+    let id = req.params.id
+    let foundItem = await Articles.findById(id).exec()
+    if(!foundItem){
+      res.status(404).json({message:"article not found"})
+    }
+    res.status(201).json(foundItem)
+ }
+
+
+
 router.route('/')
       .get(listArticles)
       .post(createArticle)
 
 
 
-// router.route('/:id')
-//       .get(getArticle)
+router.route('/:id')
+      .get(getArticle)
 //       .delete(deleteArticle)
 //       .put(updateArticle)
 
