@@ -84,6 +84,14 @@
               </div>
             </div>
 
+            <div v-if="isAdmin" class="buttons">
+              <a class="button" href="#">
+                <span>
+                  <router-link :to="{ name:'AdminPage'}">ADMIN</router-link>
+                </span>
+              </a>
+            </div>
+
             <div v-if="!isAuth" class="buttons">
               <a class="button" href="#">
                 <span>
@@ -97,6 +105,7 @@
               </a>
             </div>
           </div>
+        
         </div>
       </div>
     </nav>
@@ -123,6 +132,9 @@ export default {
   computed: {
     isAuth(){
       return this.$store.state.isAuth
+    },
+    isAdmin(){
+      return this.$store.state.profile === 'admin'
     }
   },
   created(){

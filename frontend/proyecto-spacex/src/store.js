@@ -21,6 +21,7 @@ const store = new Vuex.Store({
     logout(state){
       state.isAuth = false
       state.token = ""
+      state.profile = ""
     }
   }
 })

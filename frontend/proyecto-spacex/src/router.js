@@ -75,30 +75,31 @@ Vue.use(Router)
 const router = new Router({ routes, mode: "history" })
 
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(route => route.meta.private)) {
-//       const isAuth = store.state.isAuth
-//       console.info(isAuth)
-//       console.info(store.state.profile)
-//       console.info(window.localStorage.getItem("token"))
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(route => route.meta.private)) {
+      const isAuth = store.state.isAuth
+      console.info(isAuth)
+      console.info(store.state.profile)
+      console.info(window.localStorage.getItem("token"))
 
-//       if (isAuth) {
-//           if (to.meta.hasOwnProperty('allowedProfiles')) {
-//               console.info(to.meta.allowedProfiles)
-//               if (!to.meta.allowedProfiles.includes(store.state.profile)) {
-//                   alert('No tienes permitida la entrada a esta ruta')
-//                   next('/')
-//               }
-//           }
+      if (isAuth) {
+          if (to.meta.hasOwnProperty('allowedProfiles')) {
+              console.info(to.meta.allowedProfiles)
+              if (!to.meta.allowedProfiles.includes(store.state.profile)) {
+                  alert('No tienes permitida la entrada a esta ruta')
+                  next('/')
+              }
+          }
 
-//           next()
-//       } else {
-//           next("/login")
-//       }
-//   } else {
-//       next()
-//   }
-// })
+          next()
+      } else {
+          alert("You have to be an admin to visit this page")
+          next("/")
+      }
+  } else {
+      next()
+  }
+})
 
 
 
