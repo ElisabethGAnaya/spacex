@@ -1,6 +1,8 @@
 <template>
- <div class="container">
+ <div class="container article-body">
     <h1>{{article.title}}</h1>
+    <img :src="article.page" alt="">
+    <p>{{article.body}}</p>
  </div>
 </template>
 

@@ -140,7 +140,7 @@ export default {
   created(){
     const token = window.localStorage.getItem("token")
     if(token){
-      this.$store.commit("login")
+      this.$store.commit("login", token)
     }
   },
   methods: {
