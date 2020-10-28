@@ -2,6 +2,10 @@
   background: #000a14;
 }
 
+.admin {
+  min-height: 80vh;
+}
+
 .has-background-darkblue {
   background: #000a14;
 }

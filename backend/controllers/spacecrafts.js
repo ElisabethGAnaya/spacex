@@ -41,7 +41,7 @@ async function deleteSpacecraft(req,res){
     res.json({message: "Spacecraft was successfully deleted"})
   } catch (e) {
     console.info(e)
-    res.status(404).json({ message: "Spacecrafts not found or cant' be deleted"})
+    res.status(404).json({ message: "Spacecraft not found or cant' be deleted"})
   }
 }
 
