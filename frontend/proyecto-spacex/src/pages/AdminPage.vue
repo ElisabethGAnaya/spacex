@@ -1,6 +1,6 @@
 <template>
 
-<div class="admin">
+<div class="admin article-body">
   <div class="columns">
 
         <div class="column m-4 is-2 is-lefht">

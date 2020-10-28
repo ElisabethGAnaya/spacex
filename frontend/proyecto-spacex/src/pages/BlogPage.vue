@@ -1,6 +1,6 @@
 <template>
 
-<div class="container">
+<div class="container article-body">
  
   <div class="columns is-multiline p-6">
 

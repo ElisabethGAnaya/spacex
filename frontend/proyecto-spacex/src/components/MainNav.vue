@@ -85,7 +85,7 @@
             </div>
 
             <div v-if="isAdmin" class="buttons">
-              <a class="button" href="#">
+              <a class="button">
                 <span>
                   <router-link :to="{ name:'AdminPage'}">ADMIN</router-link>
                 </span>
@@ -93,7 +93,7 @@
             </div>
 
             <div v-if="!isAuth" class="buttons">
-              <a class="button" href="#">
+              <a class="button">
                 <span>
                   <router-link :to="{ name:'LoginPage'}">Login</router-link>
                 </span>
