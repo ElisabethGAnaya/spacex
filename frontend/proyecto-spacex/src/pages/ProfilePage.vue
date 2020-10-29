@@ -233,7 +233,7 @@ export default {
   },
   mounted() {
     console.info("llamada")
-    this.$http.get(`/users/${this.$store.state.userID}`).then((users) => {
+    this.$http.get(`/users/${this.$store.state.id}`).then((users) => {
       this.user =  users.data
     })
   },
@@ -253,7 +253,7 @@ export default {
     async updateUser(){
       let updatedUser = this.user
       try{
-        await this.$http.put(`/users/${this.$store.state.userID}`, updatedUser)
+        await this.$http.put(`/users/${this.$store.state.id}`, updatedUser)
         alert("User has been updated!")
       }catch(e){
         console.log(e)
