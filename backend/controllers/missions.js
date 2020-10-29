@@ -77,7 +77,7 @@ async function updateMission(req, res) {
 }
 
 router.route('/')
-      .get(userAndAdminAllowed,listMissions)
+      .get(listMissions)
       .post(userAndAdminAllowed,createMission)
 
 
