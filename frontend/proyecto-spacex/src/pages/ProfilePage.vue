@@ -11,29 +11,29 @@
           <div class="card">
             <div class="card-content">
               <p class="title is-4">
-                Name
+                {{user.firstname}} {{user.lastname}}
               </p>
               <table class="table is-fullwidth">
                 <tbody>
                   <tr>
                     <th>Email</th>
-                    <td></td>
+                    <td> {{user.email}} </td>
                   </tr>
                   <tr>
                     <th>Phone</th>
-                    <td></td>
+                    <td> {{user.phone}} </td>
                   </tr>
                   <tr>
                     <th>Weight (kg)</th>
-                    <td></td>
+                    <td> {{user.weight}} </td>
                   </tr>
                   <tr>
                     <th>Height (cm)</th>
-                    <td></td>
+                    <td> {{user.height}} </td>
                   </tr>
                   <tr>
                     <th>Age</th>
-                    <td></td>
+                    <td> {{user.age}} </td>
                   </tr>
                 </tbody>
               </table>
@@ -48,7 +48,6 @@
         <div class="modal-card">
           <header class="modal-card-head has-background-darkblue">
             <p class="modal-card-title has-text-white">Edit Profile</p>
-            <button class="delete" aria-label="close" @click="cancelModal"></button>
           </header>
           <section class="modal-card-body has-background-darkblue">
                   <div class="columns is-multiline">
@@ -56,6 +55,7 @@
                       <div class="field ">
                         <div class="form control has-icons-left">
                           <input
+                            v-model="user.firstname"
                             class="input"
                             type="text"
                             placeholder="Firstname"
@@ -71,6 +71,7 @@
                       <div class="field ">
                         <div class="form control has-icons-left">
                           <input
+                            v-model="user.lastname"
                             class="input"
                             type="text"
                             placeholder="Lastname"
@@ -86,6 +87,7 @@
                       <div class="field ">
                         <div class="form control has-icons-left">
                           <input
+                            v-model="user.email"
                             class="input"
                             type="email"
                             placeholder="Email"
@@ -101,6 +103,7 @@
                       <div class="field ">
                         <div class="form control has-icons-left">
                           <input
+                            v-model="user.phone"
                             class="input"
                             type="text"
                             placeholder="Phone"
@@ -116,6 +119,7 @@
                       <div class="field ">
                         <div class="form control has-icons-left">
                           <input
+                            v-model="user.weight"
                             class="input"
                             type="number"
                             placeholder="Weight (kg)"
@@ -131,6 +135,7 @@
                       <div class="field ">
                         <div class="form control has-icons-left">
                           <input
+                            v-model="user.height"
                             class="input"
                             type="number"
                             placeholder="Height (cm)"
@@ -146,6 +151,7 @@
                       <div class="field ">
                         <div class="form control has-icons-left">
                           <input
+                            v-model="user.age"
                             class="input"
                             type="number"
                             placeholder="Age"
@@ -160,17 +166,19 @@
           </section>
           <footer class="modal-card-foot has-background-darkblue">
             <button class="button is-link" @click="okModal">Save</button>
-            <button class="button" @click="cancelModal">Cancel</button>
+            <!-- <button class="button" @click.prevent="cancelModal">Cancel</button> -->
           </footer>
         </div>
       </div>
     </div>
 
-     <div class="column is-halft p-6">
+    <!-- Missions -->
+    <div class="column is-halft p-6">
       <h1 class="title has-text-link">
         Missions
       </h1>
-      <div class="card m-4">
+      
+      <div class="card">
         <div class="card-content">
           <p class="title is-4">
             Name Mission
@@ -219,7 +227,15 @@ export default {
     return {
       showModalFlag: false,
       okPressed: false,
+      user: {},
+      editMode: false
     }
+  },
+  mounted() {
+    console.info("llamada")
+    this.$http.get(`/users/${this.$store.state.userID}`).then((users) => {
+      this.user =  users.data
+    })
   },
   methods: {
     showModal() {
@@ -234,12 +250,14 @@ export default {
       this.okPressed = false;
       this.showModalFlag = false;
     },
-    async editUser(id){
-      this.editMode = true
-      const index = this.spacecrafts.findIndex((user)=> user._id === id)
-      let user = this.user[index]
-      this.user = user
-      this.user_id = id
+    async updateUser(){
+      let updatedUser = this.user
+      try{
+        await this.$http.put(`/users/${this.$store.state.userID}`, updatedUser)
+        alert("User has been updated!")
+      }catch(e){
+        console.log(e)
+      }
     }
   }
 }

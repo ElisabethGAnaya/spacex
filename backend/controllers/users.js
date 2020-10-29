@@ -35,7 +35,7 @@ async function createUser(req,res) {
 
 async function getUser(req,res){
   let id = req.params.id
-  const user = await Users.findById({_id:id}).exec()
+  const user = await Users.findById(id).exec()
   if(!user){
     res.status(404).json({message: "user not found"})
   }

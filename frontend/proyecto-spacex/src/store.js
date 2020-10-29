@@ -16,12 +16,14 @@ const store = new Vuex.Store({
       state.token = token
       const data = jwtDecode(token)
       state.profile = data.profile
+      state.userID = data.id
       console.log(state.isAuth,state.token,state.profile)
     },
     logout(state){
       state.isAuth = false
       state.token = ""
       state.profile = ""
+      state.userID= ""
     }
   }
 })
