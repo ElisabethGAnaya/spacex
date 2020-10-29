@@ -3,10 +3,10 @@
     <section class="hero is-link is-medium">
       <div class="hero-body hero-mission">
         <div class="container">
-          <div class="card has-background-darkblue p-2">
+          <div class="card card-size has-background-darkblue p-2">
             <div class="card-content">
               <div class="columns is-multiline">
-                <h1 class="title">
+                <h1 class="title titles1 line">
                   Your mission start here
                 </h1>
 
@@ -117,12 +117,12 @@
         All missions
       </h1>
 
-      <div
-        v-for="mission in missions"
-        :key="mission._id"
-        class="columns is-multiline"
-      >
-        <div class="column is-4">
+      <div class="columns is-multiline">
+        <div 
+          class="column is-4 " 
+          v-for="mission in missions"
+          :key="mission._id"
+        >
           <div class="card">
             <div class="card-content">
               <p class="title is-4">
@@ -140,11 +140,11 @@
                     <td></td>
                   </tr>
                   <tr>
-                    <th>Depart:  {{mission.depart}}</th>
+                    <th>Depart: {{ mission.depart | toDateOnly }} </th>
                     <td></td>
                   </tr>
                   <tr>
-                    <th>Return: {{mission.return}}</th>
+                    <th>Return: {{ mission.return | toDateOnly }} </th>
                     <td></td>
                   </tr>
                   <tr>

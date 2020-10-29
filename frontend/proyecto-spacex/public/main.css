@@ -1,3 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+/*********** Helpers class ***********/
+
+.titles {
+  display: inline;
+  font-family: 'Anton', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+
+.titles1 {
+  display: inline;
+  font-family: 'Anton', sans-serif;
+  font-size: 2.35rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  padding-top: 0.4rem;
+}
+
+.line {
+  border-top: 3px solid coral;
+}
+
 #app {
   background: #000a14;
 }
@@ -14,6 +41,11 @@
   background: #000a14;
 }
 
+.has-background-blue {
+  background:  rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
 .is-coral {
   background: coral;
   border: coral;
@@ -26,7 +58,7 @@
   color: #fff;
 }
 
-/* Missions */
+/*********** Missions ***********/
 
 .hero-mission {
   background-image: url('./images/astronaut-3840x2160-stars-space-galaxy-5k-17812.jpg');
@@ -36,7 +68,31 @@
   position: relative;
 }
 
-/* Login */
+.sel select, .txt textarea {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid white;
+  border-radius: 20px;
+  width: 280px;
+}
+
+.sel select option {
+  color: #000;
+}
+
+.sel select::placeholder, .txt textarea::placeholder {
+  color: white;
+  opacity: 0.6;
+}
+
+.sel select:focus, .txt textarea::focus {
+  outline: 0;
+  border-color: coral;
+}
+
+
+
+/*********** Login // Register ***********/
 .vue-part {
   height: 100vh;
 }
@@ -44,7 +100,6 @@
 .logo {
   margin-left: 80px;
   width: 190px;
-  /* opacity: 0.9; */
 }
 
 #container-form {
@@ -54,7 +109,7 @@
   transform: translate(-50%, -50%);
 }
 
-.card {
+.card-size {
   max-width: 480px;
 }
 
@@ -88,7 +143,9 @@
   border-color: coral;
 }
 
-/* Blog */
+
+
+/*********** Blog ***********/
 
 .card-blog {
   background: rgba(255, 255, 255, 0.1);
@@ -128,26 +185,16 @@
   min-width: 500px;
 }
 
-/* Missions */
 
-.sel select, .txt textarea {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.1);
+
+/*********** Destinations ***********/
+
+.btn-white {
   border: 2px solid white;
-  border-radius: 20px;
-  width: 280px;
-}
-
-.sel select option {
-  color: #000;
-}
-
-.sel select::placeholder, .txt textarea::placeholder {
-  color: white;
-  opacity: 0.6;
-}
-
-.sel select:focus, .txt textarea::focus {
-  outline: 0;
-  border-color: coral;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  padding: 10px;
+  width: 140px;
+  color: #fff;
 }

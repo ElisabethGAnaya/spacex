@@ -45,20 +45,10 @@
               </a>
             </div>
           </div>
-
-          <div v-if="isAuth" class="navbar-item has-dropdown is-hoverable">
-            <router-link class="navbar-link  has-text-white" :to="{ name:'DestionationsPage'}">
-              Destinations
-            </router-link>
-            <div class="navbar-dropdown is-boxed has-background-dark">
-              <a class="navbar-item  has-text-white" href="#">
-                Moon
-              </a>
-              <a class="navbar-item  has-text-white" href="#">
-                Mars
-              </a>
-            </div>
-          </div>
+          
+          <router-link class="navbar-item  has-text-white" :to="{ name:'DestionationsPage'}">
+            Destinations
+          </router-link>
 
           <router-link v-if="isAuth" class="navbar-item  has-text-white" :to="{ name:'MissionsPage'}">
             Missions

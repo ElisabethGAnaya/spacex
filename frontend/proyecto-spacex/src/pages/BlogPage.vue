@@ -1,8 +1,12 @@
 <template>
 
-<div class="container article-body">
+<div class="container">
+
+  <div class="pt-6 pl-3">
+    <h1 class="line titles">Blogs</h1>
+  </div>
  
-  <div class="columns is-multiline p-6">
+  <div class="columns is-multiline p-3">
 
     <div v-for="article in articles" :key="article._id" class="column is-3">
       <div class="card card-blog">
@@ -22,8 +26,7 @@
 
           <div class="content">
             <p>{{article.excerpt}}</p>
-
-            <time class="mt-4" datetime="2016-1-1">{{article.published}}</time>
+            <p>{{ article.published | toDate }}</p>
           </div>
         </div>
       </div>

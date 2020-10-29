@@ -1,7 +1,12 @@
 <template>
-  <div class="container sigle-article padre p-6">
+<div class="container">
+  <div class="pt-6 pl-3">
+    <h1 class="line titles">Blogs</h1>
+  </div>
+ 
+    <div class="padre pb-6">
 
-      <div class="card hijo">
+      <div class="card has-background-blue  hijo">
         <div class="card-image">
           <figure class="image is-4by3">
             <img :src="article.image" alt="Placeholder image">
@@ -10,19 +15,20 @@
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <p class="title is-4">{{article.title}}</p>
+              <p class="title has-text-link is-4">{{article.title}}</p>
             </div>
           </div>
 
           <div class="content">
             <p>{{article.body}}</p>
 
-            <p class="mt-4">{{article.published}}</p>
+            <p>{{ article.published | toDate }}</p>
           </div>
         </div>
       </div>
 
   </div>
+</div>
 </template>
 
 <script>

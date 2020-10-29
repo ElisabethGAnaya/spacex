@@ -6,6 +6,16 @@ import VueParticles from 'vue-particles'
 import router from './router'
 import store  from './store'
 
+// Filters
+Vue.filter('toDate', (date) => {
+  let shortTime = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+  return new Intl.DateTimeFormat('en-BG', shortTime).format(date)
+})
+
+Vue.filter('toDateOnly', (date) => {
+  let shortTime = { year: 'numeric', month: 'short', day: 'numeric'};
+  return new Intl.DateTimeFormat('en-BG', shortTime).format(date)
+})
 
 
 Vue.use(VueParticles)
