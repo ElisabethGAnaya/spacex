@@ -8,143 +8,161 @@
         Profile
       </h1>
 
-      <button class="button" @click="showModal">Show</button>
+          <div class="card">
+            <div class="card-content">
+              <p class="title is-4">
+                Name
+              </p>
+              <table class="table is-fullwidth">
+                <tbody>
+                  <tr>
+                    <th>Email</th>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th>Phone</th>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th>Weight (kg)</th>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th>Height (cm)</th>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th>Age</th>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <footer class="card-footer">
+              <a href="#" class="card-footer-item" @click="showModal">Edit Profile</a>
+            </footer>
+          </div>
 
       <div class="modal" :class="{'is-active': showModalFlag}">
         <div class="modal-background"></div>
         <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Modal title</p>
+          <header class="modal-card-head has-background-darkblue">
+            <p class="modal-card-title has-text-white">Edit Profile</p>
             <button class="delete" aria-label="close" @click="cancelModal"></button>
           </header>
-          <section class="modal-card-body">
-            <!-- Content ... -->
+          <section class="modal-card-body has-background-darkblue">
+                  <div class="columns is-multiline">
+                    <div class="column is-half">
+                      <div class="field ">
+                        <div class="form control has-icons-left">
+                          <input
+                            class="input"
+                            type="text"
+                            placeholder="Firstname"
+                          />
+                          <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="column is-half">
+                      <div class="field ">
+                        <div class="form control has-icons-left">
+                          <input
+                            class="input"
+                            type="text"
+                            placeholder="Lastname"
+                          />
+                          <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="column is-half">
+                      <div class="field ">
+                        <div class="form control has-icons-left">
+                          <input
+                            class="input"
+                            type="email"
+                            placeholder="Email"
+                          />
+                          <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="column is-half">
+                      <div class="field ">
+                        <div class="form control has-icons-left">
+                          <input
+                            class="input"
+                            type="text"
+                            placeholder="Phone"
+                          />
+                          <span class="icon is-small is-left">
+                            <i class="fas fa-mobile-alt"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="column is-halft">
+                      <div class="field ">
+                        <div class="form control has-icons-left">
+                          <input
+                            class="input"
+                            type="number"
+                            placeholder="Weight (kg)"
+                          />
+                          <span class="icon is-small is-left">
+                            <i class="fas fa-weight"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="column is-half">
+                      <div class="field ">
+                        <div class="form control has-icons-left">
+                          <input
+                            class="input"
+                            type="number"
+                            placeholder="Height (cm)"
+                          />
+                          <span class="icon is-small is-left">
+                            <i class="fas fa-arrows-alt-v"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="column is-6">
+                      <div class="field ">
+                        <div class="form control has-icons-left">
+                          <input
+                            class="input"
+                            type="number"
+                            placeholder="Age"
+                          />
+                          <span class="icon is-small is-left">
+                            <i class="fas fa-birthday-cake"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
           </section>
-          <footer class="modal-card-foot">
-            <button class="button is-success" @click="okModal">Save changes</button>
+          <footer class="modal-card-foot has-background-darkblue">
+            <button class="button is-link" @click="okModal">Save</button>
             <button class="button" @click="cancelModal">Cancel</button>
           </footer>
         </div>
-      </div>
-
-      <div class="columns is-multiline">
-          <div class="column is-half">
-            <div class="field ">
-              <div class="form control has-icons-left">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Firstname"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-user"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="field ">
-              <div class="form control has-icons-left">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Lastname"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-user"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="field ">
-              <div class="form control has-icons-left">
-                <input
-                  class="input"
-                  type="email"
-                  placeholder="Email"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-envelope"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="field ">
-              <div class="form control has-icons-left">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Phone"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-mobile-alt"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-halft">
-            <div class="field ">
-              <div class="form control has-icons-left">
-                <input
-                  class="input"
-                  type="number"
-                  placeholder="Weight (kg)"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-weight"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="field ">
-              <div class="form control has-icons-left">
-                <input
-                  class="input"
-                  type="number"
-                  placeholder="Height (cm)"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-arrows-alt-v"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-6">
-            <div class="field ">
-              <div class="form control has-icons-left">
-                <input
-                  class="input"
-                  type="number"
-                  placeholder="Age"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-birthday-cake"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-      </div>
-
-      <div class="field is-grouped">
-        <p  class="control">
-          <button class="button is-link">
-            Save
-          </button>
-        </p>
-        <p class="control">
-          <button  class="button is-light">
-            Cancel
-          </button>
-        </p>
       </div>
     </div>
 
