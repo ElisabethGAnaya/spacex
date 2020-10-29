@@ -8,7 +8,8 @@ const store = new Vuex.Store({
   state: {
     isAuth: false,
     token:"",
-    profile:""
+    profile:"",
+    id:""
   },
   mutations: {
     login(state,token){
@@ -16,12 +17,13 @@ const store = new Vuex.Store({
       state.token = token
       const data = jwtDecode(token)
       state.profile = data.profile
-      console.log(state.isAuth,state.token,state.profile)
+      state.id = data.id
     },
     logout(state){
       state.isAuth = false
       state.token = ""
       state.profile = ""
+      state.id = ""
     }
   }
 })

@@ -15,7 +15,7 @@
                 <div class="column is-12">
                   <div class="field">
                     <div class="form control has-icons-left has-icons-right">
-                      <input class="input has-text-white" type="email" placeholder="Mission name">
+                      <input v-model="mission.name" class="input has-text-white" type="text" placeholder="Mission name">
                       <span class="icon is-small is-left">
                         <i class="fas fa-angle-right"></i>
                       </span>
@@ -25,9 +25,9 @@
 
                 <div class="column is-6">
                   <div class="field">
-                    <label class="label has-text-white">Depart</label>
+                    <label  class="label has-text-white">Depart</label>
                     <div class="form control">
-                      <input class="input has-text-white" type="date">
+                      <input v-model="mission.depart" class="input has-text-white" type="date">
                     </div>
                   </div>
                 </div>
@@ -36,7 +36,7 @@
                   <div class="field">
                     <label class="label has-text-white">Return</label>
                     <div class="form control">
-                      <input class="input has-text-white" type="date">
+                      <input v-model="mission.return" class="input has-text-white" type="date">
                     </div>
                   </div>
                 </div>
@@ -44,10 +44,10 @@
                 <div class="column is-6">
                   <div class="field">
                     <div class="select sel is-fullwidth is-rounded">
-                      <select name="spacecraft" required>
+                      <select v-model="mission.spacecraft" name="spacecraft" required>
                         <option value="" disabled selected>Spacecraft</option>
-                        <option>Falcon 9</option>
-                        <option>Falcon Heavy</option>
+                        <option value="5f97288745deef070589e347">Falcon 9</option>
+                        <option value="5f97299245deef070589e348">Falcon Heavy</option>
                       </select>
                     </div>
                   </div>
@@ -56,10 +56,10 @@
                 <div class="column is-6">
                   <div class="field">
                     <div class="select sel is-fullwidth is-rounded">
-                      <select name="spacecraft" required>
+                      <select v-model="mission.destination" name="spacecraft" required>
                         <option value="" disabled selected>Destination</option>
-                        <option>Moon</option>
-                        <option>Mars</option>
+                        <option value="5f9872214f211e00cdb4bb0f">Mars</option>
+                        <option value="5f9872d04f211e00cdb4bb10">Jupiter</option>
                       </select>
                     </div>
                   </div>
@@ -68,7 +68,7 @@
                 <div class="column is-12">
                   <div class="field ">
                   <div class="control txt">
-                    <textarea
+                    <textarea v-model="mission.description"
                       class="textarea " 
                       placeholder="Description"
                     ></textarea>
@@ -78,7 +78,7 @@
 
               </div>
 
-              <button class="btn button mt-3">Reserve Mission</button>
+              <button class="btn button mt-3" @click="createMission">Start!</button>
               
             </div>
           </div>
@@ -137,7 +137,33 @@ export default {
   name: "MissionsPage",
   data() {
     return {
-      
+      mission: {
+        name:"",
+        description:"",
+        destination:"",
+        depart:"",
+        return:""
+      }
+    }
+  },
+  methods:{
+    createMission(){
+      try{
+        let config = {
+          headers: {
+              'Authorization': `Bearer ${this.$store.state.token}`
+          }
+        }
+        let missionData = {...this.mission}
+        missionData.return = new Date(missionData.return).getTime() 
+        missionData.depart = new Date(missionData.depart).getTime()
+        this.$http.post("/missions", missionData, config)
+        
+        alert("new mission has been created!")
+      }catch(e){
+        console.log(e)
+        alert("something, went wrong. Try again later")
+      }
     }
   }
 }
