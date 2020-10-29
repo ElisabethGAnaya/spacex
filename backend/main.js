@@ -21,7 +21,7 @@ const authRoutes = require('./controllers/auth')
 const spacecraftRoutes = require('./controllers/spacecrafts')
 const articleRoutes = require('./controllers/articles')
 const destinationRoutes = require('./controllers/destinations')
-
+const missionRoutes = require('./controllers/missions')
 
 //**********Init Function**********//
 
@@ -59,7 +59,7 @@ app.use('/auth', authRoutes)
 app.use('/spacecrafts', spacecraftRoutes)
 app.use('/articles', articleRoutes)
 app.use('/destinations', destinationRoutes)
-
+app.use('/missions', missionRoutes)
 
 app.get('*', (req,res) => {
   res.send("Sorry page not found! ❌")

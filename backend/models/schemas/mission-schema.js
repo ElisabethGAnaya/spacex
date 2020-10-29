@@ -2,15 +2,16 @@ const mongoose = require('mongoose')
 
 module.exports = new mongoose.Schema({
   name: { type: String, required: true },
-  depart: { type: Number, required: false },
-  return: { type: Number, required: false },
+  depart: { type: Number, required: true },
+  return: { type: Number, required: true },
   description: { type: String, required: false },
+  creator: {type:mongoose.Schema.Types.ObjectId, ref:'users'},
   state: { type: String, required: false, default: 'pending' },
-  user: [{
+  passengers: [{
     type:mongoose.Schema.Types.ObjectId, ref:'users'
   }],
   spacecraft: {
-    type:mongoose.Schema.Types.ObjectId, ref:'spacescrafts'
+    type:mongoose.Schema.Types.ObjectId, ref:'spacecrafts'
   },
   destination: {
     type:mongoose.Schema.Types.ObjectId, ref:'destinations'

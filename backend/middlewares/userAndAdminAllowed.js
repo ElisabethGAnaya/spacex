@@ -1,7 +1,8 @@
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken")
 const User = require('../models/users')
 
-module.exports = async(req, res, next) => {
+async function userAndAdminAllowed(req, res, next) {
+    const PASSWORD = process.env.TOKEN_PASSWORD
     let token = req.token
 
     if (token === undefined) {
@@ -11,15 +12,16 @@ module.exports = async(req, res, next) => {
         });
     }
 
-    if (token) {
+    if (token !== undefined) {
         try {
-            let decodedToken = await jwt.verify(req.token, process.env.PASSPHRASE)
+            let decodedToken = await jwt.verify(req.token, PASSWORD)
 
-            //metemos la info del token decodificada para los middlewares que vengan a continuación
             req.user = decodedToken
 
+
+
             //comprobar si el usuario sigue existiendo en la base datos
-            let foundUser = await User.findOne({ _id: decodedToken._id, enabled: true }).exec()
+            let foundUser = await User.findOne({ id: token._id }).exec()
 
             if (!foundUser) {
                 res.status(403).json({ success: false, message: 'El usuario autenticado ya no está en el sistema' })
@@ -27,8 +29,8 @@ module.exports = async(req, res, next) => {
             }
 
             //que su perfil es el adecuado para la acción que ha solictado
-            if (decodedToken.profile !== 'admin' && decodedToken.profile !== 'user') {
-                res.status(403).json({ success: false, message: 'Debes ser administrador o usuario para poder crear elementos.' })
+            if (decodedToken.profile !== 'user' && decodedToken.profile !== 'admin') {
+                res.status(403).json({ success: false, message: 'Debes ser usuario para poder crear elementos.' })
                 return
             }
 
@@ -40,3 +42,6 @@ module.exports = async(req, res, next) => {
         }
     }
 }
+
+
+module.exports = userAndAdminAllowed

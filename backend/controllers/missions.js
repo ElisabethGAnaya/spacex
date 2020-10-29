@@ -1,22 +1,35 @@
 const express = require('express')
 const router = express.Router()
 const Missions = require('../models/missions')
+const userAndAdminAllowed = require('../middlewares/userAndAdminAllowed')
 
 
 async function listMissions(req,res) {
-  let missions = await Missions.find().populate('users', 'spacecrafts', 'destinations').exec()
+  let missions = await Missions.find().populate('creator').populate('spacecraft').populate('passengers').populate("destination").exec()
   let filteredList = missions.map((item) => {
     item = {...item.toJSON()}
     return item
   })
-  res.send(filteredList)
+  // res.send(filteredList)
+  res.json(missions)
 }
 
 
 async function createMission(req,res) {
   try {
-    let newMission = await new Missions(req.body).populate('users', 'spacecrafts', 'destinations').save()
-    let createdMission = newMission.toJSON()
+    newMissionData = {
+        name: req.body.name,
+        depart: req.body.depart,
+        return: req.body.return,
+        description: req.body.description,
+        creator: req.user.id,
+        state: req.body.state,
+        passengers: [req.user.id],
+        spacecraft: req.body.spacecraft,
+        destination: req.body.destination,
+    }
+    let newMission = await new Missions(newMissionData).save()
+    let createdMission = newMission.populate('creator','passengers', 'spacecraft', 'destination')
     res.status(201).json(createdMission)
   } catch (e) {
     console.info(e)
@@ -64,13 +77,13 @@ async function updateMission(req, res) {
 }
 
 router.route('/')
-      .get(listMissions)
-      .post(createMission)
+      .get(userAndAdminAllowed,listMissions)
+      .post(userAndAdminAllowed,createMission)
 
 
 router.route('/:id')
       .get(getMission)
-      .put(updateM)
+      .put(updateMission)
       .delete(deleteMission)
 
 module.exports = router
