@@ -60,7 +60,7 @@
             </div>
           </div>
 
-          <router-link class="navbar-item  has-text-white" :to="{ name:'MissionsPage'}">
+          <router-link v-if="isAuth" class="navbar-item  has-text-white" :to="{ name:'MissionsPage'}">
             Missions
           </router-link>
           
@@ -147,6 +147,7 @@ export default {
     logout(){
       window.localStorage.removeItem("token")
       this.$store.commit("logout")
+      this.$router.push({name: "HomePage"})
     }
   }
 }

@@ -81,7 +81,6 @@ router.beforeEach((to, from, next) => {
 
       if (isAuth) {
           if (to.meta.hasOwnProperty('allowedProfiles')) {
-              console.info(to.meta.allowedProfiles)
               if (!to.meta.allowedProfiles.includes(store.state.profile)) {
                   alert('No tienes permitida la entrada a esta ruta')
                   next('/')
