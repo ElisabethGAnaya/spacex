@@ -39,7 +39,7 @@
               </table>
             </div>
             <footer class="card-footer">
-              <a href="#" class="card-footer-item" @click="showModal">Edit Profile</a>
+              <a href="#" class="card-footer-item" @click.prevent="showModal">Edit Profile</a>
             </footer>
           </div>
 
@@ -165,8 +165,8 @@
                 </div>
           </section>
           <footer class="modal-card-foot has-background-darkblue">
-            <button class="button is-link" @click="okModal">Save</button>
-            <!-- <button class="button" @click.prevent="cancelModal">Cancel</button> -->
+            <button class="button is-link" @click.prevent="updateUser">Save</button>
+            <button class="button" @click.prevent="cancelModal">Cancel</button>
           </footer>
         </div>
       </div>
@@ -228,13 +228,13 @@ export default {
       showModalFlag: false,
       okPressed: false,
       user: {},
-      editMode: false
+      userBeforeEdit: {}
     }
   },
   mounted() {
-    console.info("llamada")
     this.$http.get(`/users/${this.$store.state.id}`).then((users) => {
-      this.user =  users.data
+      this.user = users.data
+      this.userBeforeEdit = Object.assign({}, this.user)
     })
   },
   methods: {
@@ -242,22 +242,22 @@ export default {
       this.okPressed = false;
       this.showModalFlag = true;
     },
-    okModal() {
-      this.okPressed = true;
-      this.showModalFlag = false;
-    },
     cancelModal() {
       this.okPressed = false;
       this.showModalFlag = false;
+      Object.assign(this.user, this.userBeforeEdit)
     },
     async updateUser(){
       let updatedUser = this.user
       try{
         await this.$http.put(`/users/${this.$store.state.id}`, updatedUser)
+        this.userBeforeEdit = Object.assign({}, this.user)
         alert("User has been updated!")
       }catch(e){
         console.log(e)
       }
+      this.okPressed = true;
+      this.showModalFlag = false;
     }
   }
 }
