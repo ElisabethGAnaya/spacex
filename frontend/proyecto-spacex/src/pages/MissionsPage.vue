@@ -127,7 +127,7 @@
             <div class="card-content">
               <p class="title is-4">
                 {{mission.name}}
-                <span class="tag is-success mr-1">4/6</span>
+                <span class="tag is-success mr-1">{{mission.passengers.length}}/{{mission.spacecraft.passengers}}</span>
               </p>
               <table class="table is-fullwidth">
                 <tbody>
@@ -157,6 +157,7 @@
                   </tr>
                 </tbody>
               </table>
+              <button  class="btn button mt-3" @click.prevent="register(mission._id)">REGISTER</button>
             </div>
           </div>
         </div>
@@ -178,6 +179,7 @@ export default {
         return: "",
       },
       missions: [],
+      isRegestered: false
     };
   },
   methods: {
@@ -200,6 +202,45 @@ export default {
         alert("something, went wrong. Try again later");
       }
     },
+    async register(missionId){
+      const mission = await this.$http.get("/missions/"+missionId)
+      const userId = this.$store.state.id
+      const config = {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.token}`,
+          },
+        }
+      
+      if(!mission){
+        alert("Looks like mission has been deleted")
+        return
+      }
+      if(mission.data.creator._id === userId){
+        alert("You are already registered to this mission")
+        return
+      }
+
+      
+      let foundUser = mission.data.passengers.filter( e => e._id === userId)
+      console.log(foundUser)
+      if(foundUser.length > 0){
+        alert("You are already in passenger list")
+        return
+      }
+
+      if(mission.data.passengers.length >= mission.data.spacecraft.passengers){
+        alert("This mission is fully booked")
+        return
+      }
+
+      try{
+        await this.$http.put("/missions/"+missionId,{},config)
+        alert("You have been registered!")
+      }catch(e){
+        console.log(e)
+        alert("Please try again later, or contact administration")
+      }
+    }
   },
   created() {
     this.$http.get("/missions").then((allMissions) => {
