@@ -123,37 +123,37 @@
           v-for="mission in missions"
           :key="mission._id"
         >
-          <div class="card">
+          <div class="card has-background-blue">
             <div class="card-content">
-              <p class="title is-4">
+              <p class="title is-4 has-text-white">
                 {{mission.name}}
                 <span class="tag is-success mr-1">{{mission.passengers.length}}/{{mission.spacecraft.passengers}}</span>
               </p>
-              <table class="table is-fullwidth">
+              <table class="table is-fullwidth has-background-blue">
                 <tbody>
                    <tr>
-                    <th>Created By:    {{mission.creator.firstname}} {{mission.creator.lastname}}</th>
-                    <td></td>
+                    <th>Created By:</th>
+                    <td> {{mission.creator.firstname}} {{mission.creator.lastname}} </td>
                   </tr>
                   <tr>
-                    <th>Destination:    {{mission.destination.name}}</th>
-                    <td></td>
+                    <th>Destination:</th>
+                    <td> {{mission.destination.name}} </td>
                   </tr>
                   <tr>
-                    <th>Depart: {{ mission.depart | toDateOnly }} </th>
-                    <td></td>
+                    <th>Depart:</th>
+                    <td> {{ mission.depart | toDateOnly }} </td>
                   </tr>
                   <tr>
-                    <th>Return: {{ mission.return | toDateOnly }} </th>
-                    <td></td>
+                    <th>Return:</th>
+                    <td> {{ mission.return | toDateOnly }} </td>
                   </tr>
                   <tr>
-                    <th>Spacecraft: {{mission.spacecraft.name}}</th>
-                    <td></td>
+                    <th>Spacecraft:</th>
+                    <td> {{mission.spacecraft.name}} </td>
                   </tr>
                   <tr>
-                    <th>Description: {{mission.description}}</th>
-                    <td></td>
+                    <th>Description:</th>
+                    <td> {{mission.description}} </td>
                   </tr>
                 </tbody>
               </table>

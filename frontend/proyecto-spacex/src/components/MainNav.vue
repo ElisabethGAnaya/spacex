@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-transparent p-3" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         
         <router-link class="navbar-item" :to="{ name:'HomePage'}">

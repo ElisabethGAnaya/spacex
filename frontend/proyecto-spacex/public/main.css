@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&display=swap');
+
+* {
+  /* font-family: 'Lato', sans-serif; */
+  font-family: 'Montserrat', sans-serif;
+}
 
 /*********** Helpers class ***********/
 
@@ -177,7 +184,7 @@ a:hover {
 }
 
 .card-blog:hover {
-  top: -5px;
+  /* top: -5px; */
   box-shadow: 0 0 6px 2px rgba(255,255,255, 0.1);
   transition: 0.3s;
 }
@@ -188,6 +195,7 @@ a:hover {
 
 .card-blog .title a:hover {
   color: #3273dc;
+  text-decoration: underline;
 }
 
 .sigle-article {
