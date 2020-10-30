@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Missions = require('../models/missions')
 const userAndAdminAllowed = require('../middlewares/userAndAdminAllowed')
-
+const onlyAdminAllowed = require('../middlewares/onlyadminallowed')
 
 async function listMissions(req,res) {
   let missions = await Missions.find().populate('creator').populate('spacecraft').populate('passengers').populate("destination").exec()
@@ -39,7 +39,7 @@ async function createMission(req,res) {
 
 async function getMission(req,res){
   let id = req.params.id
-  const mission = await Missions.findById({_id:id}).populate('users', 'spacecrafts', 'destinations').exec()
+  const mission = await Missions.findById({_id:id}).populate('creator').populate('spacecraft').populate('destination').populate('passengers').exec()
   if(!mission){
     res.status(404).json({message: "Mission not found"})
   }
@@ -62,17 +62,20 @@ async function deleteMission(req,res){
 
 async function updateMission(req, res) {
   let missionId = req.params.id
+  let item = await Missions.findById(missionId).exec()
 
-  let updatedMission = req.body
-
-  let updatedItem = await Missions.findOneAndUpdate({ _id: missionId }, updatedMission).populate('users', 'spacecrafts', 'destinations').exec()
-
-  if(updatedItem) {
-    res.json(updatedMission)
+  if(!item){
+    res.status(404).json({message: "mission not found"})
   }
 
-  if (!updatedItem) {
-    res.status(404).json({ message: "Mission not found" })
+  let updatedItem = item.toJSON()
+  updatedItem.passengers.push(req.user.id)
+
+  try{
+    await Missions.findOneAndUpdate({ _id: missionId }, updatedItem, {new:true}).populate('creator').populate('spacecraft').populate('passengers').populate('destination').exec()
+    res.json(updatedItem)
+  }catch(e){
+    res.status(500).json({message: "something went wrong"})
   }
 }
 
@@ -83,7 +86,7 @@ router.route('/')
 
 router.route('/:id')
       .get(getMission)
-      .put(updateMission)
+      .put(userAndAdminAllowed,updateMission)
       .delete(deleteMission)
 
 module.exports = router
