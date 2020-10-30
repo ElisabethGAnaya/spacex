@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="columns">
     <div class="column is-half">
       <h1 class="title is-size-5 has-text-link">Add a New Article</h1>
 

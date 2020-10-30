@@ -1,6 +1,6 @@
 <template>
 
-<div>
+<div class="full-page">
   home
 </div>
 

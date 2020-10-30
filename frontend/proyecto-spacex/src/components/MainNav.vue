@@ -1,11 +1,10 @@
 <template>
   <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <!-- <a class="navbar-item" href="/"> -->
+        
         <router-link class="navbar-item" :to="{ name:'HomePage'}">
           <img src="../assets/spacex-logo-svg-vector.svg" alt="logo spacex" height="28">
         </router-link>
-        <!-- </a> -->
         
         <a
           role="button"
@@ -25,26 +24,10 @@
           <router-link class="navbar-item  has-text-white" :to="{ name:'HomePage'}">
           Home
           </router-link>
-          
-          <div v-if="isAuth" class="navbar-item has-dropdown is-hoverable">
-            <router-link class="navbar-link  has-text-white" :to="{ name:'SpacecraftsPage'}">
-              Spacecrafts
-            </router-link>
-            <div class="navbar-dropdown is-boxed has-background-dark">
-              <a class="navbar-item  has-text-white" href="#">
-                Falcon 9
-              </a>
-              <a class="navbar-item  has-text-white" href="#">
-                Falcon Heavy
-              </a>
-              <a class="navbar-item  has-text-white" href="#">
-                Dragon
-              </a>
-              <a class="navbar-item  has-text-white" href="#">
-                Starship
-              </a>
-            </div>
-          </div>
+
+          <router-link class="navbar-item  has-text-white" :to="{ name:'SpacecraftsPage'}">
+            Spacecrafts
+          </router-link>
           
           <router-link class="navbar-item  has-text-white" :to="{ name:'DestionationsPage'}">
             Destinations

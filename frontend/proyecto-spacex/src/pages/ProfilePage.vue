@@ -1,6 +1,6 @@
 <template>
 
-<div class="container full-page">
+<div class="container page-80">
   <div class="columns">
 
     <div class="column is-halft p-6">
@@ -8,12 +8,12 @@
         Profile
       </h1>
 
-          <div class="card">
+          <div class="card has-background-blue">
             <div class="card-content">
-              <p class="title is-4">
+              <p class="title is-4 has-text-white">
                 {{user.firstname}} {{user.lastname}}
               </p>
-              <table class="table is-fullwidth">
+              <table class="table is-fullwidth has-background-blue">
                 <tbody>
                   <tr>
                     <th>Email</th>
@@ -178,13 +178,13 @@
         Missions
       </h1>
       
-      <div class="card">
+      <div class="card has-background-blue">
         <div class="card-content">
-          <p class="title is-4">
+          <p class="title is-4 has-text-white">
             Name Mission
             <span class="tag is-success mr-1">4/6</span>
           </p>
-          <table class="table is-fullwidth">
+          <table class="table is-fullwidth has-background-blue">
             <tbody>
               <tr>
                 <th>Destination:</th>

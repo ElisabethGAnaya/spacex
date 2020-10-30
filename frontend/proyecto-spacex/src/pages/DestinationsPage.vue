@@ -1,6 +1,6 @@
 <template>
 
-  <div class="container full-page">
+  <div class="container page-80">
 
     <div class="pt-6 pl-3">
       <h1 class="line titles">Destinations</h1>
@@ -24,28 +24,18 @@
 
       <div class="column is-half p-3">
         <div 
-          class="card has-background-blue"
+          class="card has-background-blue columns is-multiline"
           v-for="(item, index) in destinationSelected"
           :item="item"
           :key="index"
         >
-          <div class="card-content">
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-480x480">
-                    <img :src="item.image" alt="Placeholder image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 has-text-white"> {{item.name}} </p>
-                  <p class="subtitle is-6 has-text-white"> {{item.distance}} km </p>
-                </div>
-              </div>
-              <div class="content">
-                 {{item.description}}
-              </div>
-            </div>
+          <div class="column card-header">
+            <img :src="item.image" alt="image">
+          </div>
+          <div class="column p-5">
+            <p class="title is-4 has-text-white"> {{item.name}} </p>
+            <p class="subtitle is-6 has-text-white"> {{item.distance}} km </p>
+            <p> {{item.description}} </p>
           </div>
         </div>
       </div>

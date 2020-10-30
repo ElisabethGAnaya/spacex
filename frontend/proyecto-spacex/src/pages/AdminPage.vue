@@ -1,6 +1,6 @@
 <template>
 
-<div class="admin article-body">
+<div class="page-80">
   <div class="columns">
 
         <div class="column m-4 is-2 is-lefht">
