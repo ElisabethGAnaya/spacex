@@ -61,12 +61,15 @@
                         required
                       >
                         <option value="" disabled selected>Spacecraft</option>
-                        <option value="5f97288745deef070589e347"
-                          >Falcon 9</option
+                        <option 
+                          v-for="spacecraft in spacecrafts" 
+                          :key="spacecraft._id"
+                          :value="spacecraft._id"
                         >
-                        <option value="5f97299245deef070589e348"
-                          >Falcon Heavy</option
-                        >
+                          {{spacecraft.name}}
+                        </option>
+                        <!-- <option value="5f97288745deef070589e347">Falcon 9</option>
+                        <option value="5f97299245deef070589e348">Falcon Heavy</option> -->
                       </select>
                     </div>
                   </div>
@@ -81,10 +84,15 @@
                         required
                       >
                         <option value="" disabled selected>Destination</option>
-                        <option value="5f9872214f211e00cdb4bb0f">Mars</option>
-                        <option value="5f9872d04f211e00cdb4bb10"
-                          >Jupiter</option
+                        <option 
+                          v-for="destination in destinations" 
+                          :key="destination._id"
+                          :value="destination._id"
                         >
+                          {{destination.name}}
+                        </option>
+                        <!-- <option value="5f9872214f211e00cdb4bb0f">Mars</option>
+                        <option value="5f9872d04f211e00cdb4bb10">Jupiter</option> -->
                       </select>
                     </div>
                   </div>
@@ -179,7 +187,9 @@ export default {
         return: "",
       },
       missions: [],
-      isRegestered: false
+      isRegestered: false,
+      destinations: [],
+      spacecrafts: []
     };
   },
   methods: {
@@ -246,6 +256,14 @@ export default {
     this.$http.get("/missions").then((allMissions) => {
       this.missions = allMissions.data.reverse();
     });
+
+    this.$http.get("/destinations").then((destinations) => {
+      this.destinations =  destinations.data.reverse()
+    })
+
+    this.$http.get("/spacecrafts").then((spacecrafts) => {
+      this.spacecrafts =  spacecrafts.data.reverse()
+    })
   },
 };
 </script>
