@@ -21,23 +21,23 @@
 
       <div id="navbarBasicExample" class="navbar-menu has-background-darkblue">
         <div class="navbar-start">
-          <router-link class="navbar-item  has-text-white" :to="{ name:'HomePage'}">
+          <router-link class="navbar-item" :to="{ name:'HomePage'}">
           Home
           </router-link>
 
-          <router-link class="navbar-item  has-text-white" :to="{ name:'SpacecraftsPage'}">
+          <router-link class="navbar-item" :to="{ name:'SpacecraftsPage'}">
             Spacecrafts
           </router-link>
           
-          <router-link class="navbar-item  has-text-white" :to="{ name:'DestionationsPage'}">
+          <router-link class="navbar-item" :to="{ name:'DestionationsPage'}">
             Destinations
           </router-link>
 
-          <router-link v-if="isAuth" class="navbar-item  has-text-white" :to="{ name:'MissionsPage'}">
+          <router-link v-if="isAuth" class="navbar-item" :to="{ name:'MissionsPage'}">
             Missions
           </router-link>
           
-          <router-link class="navbar-item  has-text-white" :to="{ name:'BlogPage'}">
+          <router-link class="navbar-item" :to="{ name:'BlogPage'}">
             Blog
           </router-link>
         </div>
@@ -46,19 +46,19 @@
           <div class="navbar-item">
             
             <div v-if="isAuth" class="navbar-item has-dropdown is-hoverable">
-              <router-link class="navbar-link  has-text-white" :to="{ name:'ProfilePage'}">
+              <router-link class="navbar-link" :to="{ name:'ProfilePage'}">
                 <i class="fas fa-user-circle mr-2"></i>
                 Profile
               </router-link>
-              <div class="navbar-dropdown is-boxed has-background-dark">
-                <a class="navbar-item  has-text-white" @click.prevent="logout">
+              <div class="navbar-dropdown is-boxed has-background-dark bg-dark">
+                <a class="navbar-item" @click.prevent="logout">
                   Logout
                 </a>
               </div>
             </div>
 
             <div v-if="isAdmin" class="buttons">
-              <a class="button">
+              <a class="button m-2">
                 <span>
                   <router-link :to="{ name:'AdminPage'}">ADMIN</router-link>
                 </span>

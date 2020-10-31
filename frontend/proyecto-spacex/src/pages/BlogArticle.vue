@@ -4,7 +4,7 @@
     <h1 class="line titles">Blogs</h1>
   </div>
  
-    <div class="padre pb-6">
+    <div class="padre p-4">
 
       <div class="card has-background-blue hijo">
         <div class="card-image">
@@ -15,7 +15,9 @@
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <p class="title has-text-blue is-4">{{article.title}}</p>
+              <p class="title has-text-blue is-4">{{article.title}} <br>
+              <b-tag>Admin</b-tag>
+              </p>
             </div>
           </div>
 

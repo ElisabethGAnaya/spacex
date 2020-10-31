@@ -47,7 +47,7 @@
                       v-model="destination.distance"
                       class="input" 
                       type="number" 
-                      placeholder="Distance (km)"
+                      placeholder="Distance (million km)"
                     />
                     <span class="icon is-small is-left">
                       <i class="fas fa-arrows-alt-h"></i>

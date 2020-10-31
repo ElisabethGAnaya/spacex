@@ -26,6 +26,16 @@
                   </div>
                 </div>
 
+                <!-- <div class="column is-12">
+                  <b-field>
+                    <b-datepicker
+                        placeholder="Select a date..."
+                        v-model="dates"
+                        range>
+                    </b-datepicker>
+                  </b-field>
+                </div> -->
+
                 <div class="column is-6">
                   <div class="field">
                     <label class="label has-text-white">Depart</label>
@@ -56,6 +66,27 @@
                   <div class="field">
                     <div class="select sel is-fullwidth is-rounded">
                       <select
+                        v-model="mission.destination"
+                        name="destination"
+                        required
+                      >
+                        <option value="" disabled selected>Destination</option>
+                        <option 
+                          v-for="destination in destinations" 
+                          :key="destination._id"
+                          :value="destination._id"
+                        >
+                          {{destination.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="column is-6">
+                  <div class="field">
+                    <div class="select sel is-fullwidth is-rounded">
+                      <select
                         v-model="mission.spacecraft"
                         name="spacecraft"
                         required
@@ -67,27 +98,6 @@
                           :value="spacecraft._id"
                         >
                           {{spacecraft.name}}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="column is-6">
-                  <div class="field">
-                    <div class="select sel is-fullwidth is-rounded">
-                      <select
-                        v-model="mission.destination"
-                        name="spacecraft"
-                        required
-                      >
-                        <option value="" disabled selected>Destination</option>
-                        <option 
-                          v-for="destination in destinations" 
-                          :key="destination._id"
-                          :value="destination._id"
-                        >
-                          {{destination.name}}
                         </option>
                       </select>
                     </div>
@@ -108,7 +118,7 @@
               </div>
 
               <button class="btn button mt-3" @click="createMission">
-                Start!
+                <i class="fas fa-rocket mr-2"></i> START
               </button>
               
             </div>
@@ -118,24 +128,37 @@
     </section>
 
     <div class="container p-6">
-      <h1 class="title has-text-blue">
-        All missions
-      </h1>
+      <div class="columns is-multiline">
+        <div class="column is-6 is-hidden-mobile">
+          <h1 class="title has-text-blue">
+            Missions
+          </h1>
+        </div>
 
-      <button v-show="!showMyMissionsList" class="button mb-4" @click.prevent="allMyMissions">My Missions</button>
-      <button v-show="showMyMissionsList" class="button mb-4" @click.prevent="allMissions">All Missions</button>
-
-      <div class="columns is-multiline" v-show="showMyMissionsList">
+        <div class="column is-6 has-text-right">
+          <div class="sel select mb-3">
+            <select v-model="currentMissions">
+              <option
+                v-for="(item,index) in categories"
+                :value="item"
+                :key="index"
+              >
+                {{ item }}
+              </option>
+            </select>
+          </div>
+        </div>
+      
         <div
           class="column is-4 " 
-          v-for="mission in myMissions"
+          v-for="mission in missionsSelected"
           :key="mission._id"
         >
           <div class="card has-background-blue">
             <div class="card-content">
               <p class="title is-4 has-text-white">
                 {{mission.name}}
-                <span class="tag is-success mr-1">{{mission.passengers.length}}/{{mission.spacecraft.passengers}}</span>
+                <span class="tag is-success">{{mission.passengers.length}}/{{mission.spacecraft.passengers}}</span>
               </p>
               <table class="table is-fullwidth has-background-blue">
                 <tbody>
@@ -165,58 +188,15 @@
                   </tr>
                 </tbody>
               </table>
-              <button v-if="!isRegestered" class="btn button mt-3" @click.prevent="register(mission._id)">REGISTER</button>
-              <button class="button is-danger" @click.prevent="deleteMission(mission._id)">DELETE</button>
-              <button class="button is-success" @click.prevent="editMission(mission._id)">EDIT</button>
+              <footer class="card-footer card-footer-mission">
+                <button class="card-footer-item button is-blue has-text-white mr-3" @click.prevent="register(mission._id)">REGISTER</button>
+                <button class="card-footer-item button mr-3">ABANDON</button>
+                <button class="card-footer-item button is-danger" @click.prevent="deleteMission(mission._id)">DELETE</button>
+              </footer>
             </div>
-          </div>
+          </div> 
         </div>
-      </div>
 
-      <div class="columns is-multiline" v-show="!showMyMissionsList">
-        <div
-          class="column is-4 " 
-          v-for="mission in missions"
-          :key="mission._id"
-        >
-          <div class="card has-background-blue">
-            <div class="card-content">
-              <p class="title is-4 has-text-white">
-                {{mission.name}}
-                <span class="tag is-success mr-1">{{mission.passengers.length}}/{{mission.spacecraft.passengers}}</span>
-              </p>
-              <table class="table is-fullwidth has-background-blue">
-                <tbody>
-                   <tr>
-                    <th>Created By:</th>
-                    <td> {{mission.creator.firstname}} {{mission.creator.lastname}} </td>
-                  </tr>
-                  <tr>
-                    <th>Destination:</th>
-                    <td> {{mission.destination.name}} </td>
-                  </tr>
-                  <tr>
-                    <th>Depart:</th>
-                    <td> {{ mission.depart | toDateOnly }} </td>
-                  </tr>
-                  <tr>
-                    <th>Return:</th>
-                    <td> {{ mission.return | toDateOnly }} </td>
-                  </tr>
-                  <tr>
-                    <th>Spacecraft:</th>
-                    <td> {{mission.spacecraft.name}} </td>
-                  </tr>
-                  <tr>
-                    <th>Description:</th>
-                    <td> {{mission.description}} </td>
-                  </tr>
-                </tbody>
-              </table>
-              <button  class="btn button mt-3" @click.prevent="register(mission._id)">REGISTER</button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -239,8 +219,22 @@ export default {
       destinations: [],
       spacecrafts: [],
       myMissions: [],
-      showMyMissionsList: false
+      currentMissions: "All Missions",
+      categories: ["All Missions", "My Missions", "Missions Created By Me"]
     };
+  },
+    created() {
+    this.$http.get("/missions").then((allMissions) => {
+      this.missions = allMissions.data.reverse();
+    });
+
+    this.$http.get("/destinations").then((destinations) => {
+      this.destinations =  destinations.data.reverse()
+    })
+
+    this.$http.get("/spacecrafts").then((spacecrafts) => {
+      this.spacecrafts =  spacecrafts.data.reverse()
+    })
   },
   methods: {
     createMission() {
@@ -364,39 +358,33 @@ export default {
                     type: 'is-danger'
                 })
       }
-    },
-    allMissions() {
-      this.showMyMissionsList = false
-    },
-    allMyMissions() {
-      // console.info(this.missions[0].passengers[0]._id)
-      this.myMissions = []
-      this.showMyMissionsList = true
+    }
+  },
+  computed: {
+    missionsSelected() {
+      if(this.currentMissions==="All Missions") return this.missions
 
-      for (let item of this.missions) {
-        for (let i of item.passengers) {
-          // console.info(i._id)
+      if(this.currentMissions==="My Missions") {
+        this.myMissions = []
 
-          if(i._id === this.$store.state.id) {
-            this.myMissions.push(item)
+        for (let item of this.missions) {
+          for (let i of item.passengers) {
+            if(i._id === this.$store.state.id) {
+              this.myMissions.push(item)
+            }
           }
         }
-        // console.info(item)
+        return this.myMissions
       }
-    },
-  },
-  created() {
-    this.$http.get("/missions").then((allMissions) => {
-      this.missions = allMissions.data.reverse();
-    });
 
-    this.$http.get("/destinations").then((destinations) => {
-      this.destinations =  destinations.data.reverse()
-    })
+      if(this.currentMissions==="Missions Created By Me") {
 
-    this.$http.get("/spacecrafts").then((spacecrafts) => {
-      this.spacecrafts =  spacecrafts.data.reverse()
-    })
-  }  
+        return this.missions.filter(
+        (item) => item.creator._id === this.$store.state.id
+        )
+        
+      }
+    }
+  }
 }
 </script>

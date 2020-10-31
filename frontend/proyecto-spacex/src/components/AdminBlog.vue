@@ -84,34 +84,34 @@
       <h1 class="title is-size-5 has-text-blue">Articles</h1>
       <button class="button is-coral" @click="listArticles">List Articles</button>
 
-     <!-- Card 1 -->
-              <div v-show="showArticleList">
-                <div 
-                  v-for="article in articles" 
-                  :key="article._id"
-                  class="card card-size mt-4"
-                >
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <figure class="image is-128x128">
-                          <img :src="article.image" alt="Placeholder image">
-                        </figure>
-                      </div>
-                      <div class="media-content">
-                        <p class="title is-4"> {{article.title}} </p>
-                        <p class="subtitle"> {{ article.published | toDate }} </p>
-                      </div>
-                    </div>
-                    <p>{{article.body}}</p>
-                  </div>
-                  <footer class="card-footer">
-                    <a href="#" class="card-footer-item" @click.prevent="editArticle(article._id)">Edit</a>
-                    <a href="#" class="card-footer-item" @click.prevent="deleteArticle(article._id)">Delete</a>
-                  </footer>
-                </div>
-                </div>
+      <!-- Card 1 -->
+      <div v-show="showArticleList">
+        <div 
+          v-for="article in articles" 
+          :key="article._id"
+          class="card card-size mt-4"
+          >
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-128x128">
+                  <img :src="article.image" alt="Placeholder image">
+                </figure>
               </div>
+              <div class="media-content">
+                <p class="title is-4"> {{article.title}} </p>
+                <p class="subtitle"> {{ article.published | toDate }} </p>
+              </div>
+            </div>
+            <p>{{article.body}}</p>
+          </div>
+          <footer class="card-footer">
+            <a href="#" class="card-footer-item" @click.prevent="editArticle(article._id)">Edit</a>
+            <a href="#" class="card-footer-item" @click.prevent="deleteArticle(article._id)">Delete</a>
+          </footer>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>

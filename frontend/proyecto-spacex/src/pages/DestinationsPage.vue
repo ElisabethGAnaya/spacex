@@ -1,5 +1,4 @@
 <template>
-
   <div class="container page-80">
 
     <div class="pt-6 pl-3">
@@ -7,7 +6,6 @@
     </div>
     
     <div class="columns">
-
       <div class="column is-half p-3">
         <div class="columns is-multiline">
             <a 
@@ -34,16 +32,19 @@
           </div>
           <div class="column p-5">
             <p class="title is-4 has-text-white"> {{item.name}} </p>
-            <p class="subtitle is-6 has-text-white"> {{item.distance}} km </p>
-            <p> {{item.description}} </p>
+            <p class="subtitle is-6"> 
+              <b-taglist attached>
+                <b-tag type="is-info">{{item.distance}}</b-tag>
+                <b-tag>million km</b-tag>
+              </b-taglist> 
+            </p>
+            <p class="txt-justify"> {{item.description}} </p>
           </div>
         </div>
       </div>
-
     </div>
     
   </div>
-
 </template>
 
 <script>
