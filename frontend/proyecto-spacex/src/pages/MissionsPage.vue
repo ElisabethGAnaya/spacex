@@ -165,7 +165,9 @@
                   </tr>
                 </tbody>
               </table>
-              <button  class="btn button mt-3" @click.prevent="register(mission._id)">REGISTER</button>
+              <button v-if="!isRegestered" class="btn button mt-3" @click.prevent="register(mission._id)">REGISTER</button>
+              <button class="button is-danger" @click.prevent="deleteMission(mission._id)">DELETE</button>
+              <button class="button is-success" @click.prevent="editMission(mission._id)">EDIT</button>
             </div>
           </div>
         </div>
@@ -212,7 +214,6 @@
                 </tbody>
               </table>
               <button  class="btn button mt-3" @click.prevent="register(mission._id)">REGISTER</button>
-              <button class="button is-danger" @click.prevent="deleteMission(mission._id)">DELETE</button>
             </div>
           </div>
         </div>
@@ -297,7 +298,10 @@ export default {
         console.log(e)
       }
     },
-
+    editMission(missionId){
+      let missionIndex = this.missions.findIndex(mission => mission._id === missionId)
+      this.mission = this.missions[missionIndex]
+    },
     async deleteItem(missionId){
        await this.$http.delete("/missions/"+missionId)
        this.$buefy.toast.open("Mission has been deleted")
@@ -352,6 +356,7 @@ export default {
                     message: 'You have been regestered!',
                     type: 'is-success'
                 })
+          this.isRegestered = true
       }catch(e){
         console.log(e)
          this.$buefy.toast.open({
