@@ -5,6 +5,9 @@ import VueAxios from 'vue-axios'
 import VueParticles from 'vue-particles'
 import router from './router'
 import store  from './store'
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
+
 
 // Filters
 Vue.filter('toDate', (date) => {
@@ -17,6 +20,8 @@ Vue.filter('toDateOnly', (date) => {
   return new Intl.DateTimeFormat('en-BG', shortTime).format(date)
 })
 
+
+Vue.use(Buefy)
 
 Vue.use(VueParticles)
 

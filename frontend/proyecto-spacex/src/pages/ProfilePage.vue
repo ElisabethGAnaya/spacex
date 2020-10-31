@@ -3,8 +3,8 @@
 <div class="container page-80">
   <div class="columns">
 
-    <div class="column is-halft p-6">
-      <h1 class="title has-text-link">
+    <div class="column is-half p-6">
+      <h1 class="title has-text-blue">
         Profile
       </h1>
 
@@ -165,7 +165,7 @@
                 </div>
           </section>
           <footer class="modal-card-foot has-background-darkblue">
-            <button class="button is-link" @click.prevent="updateUser">Save</button>
+            <button class="button is-blue has-text-white" @click.prevent="updateUser">Save</button>
             <button class="button" @click.prevent="cancelModal">Cancel</button>
           </footer>
         </div>
@@ -173,8 +173,8 @@
     </div>
 
     <!-- Missions -->
-    <div class="column is-halft p-6">
-      <h1 class="title has-text-link">
+    <!-- <div class="column is-half p-6">
+      <h1 class="title has-text-blue">
         Missions
       </h1>
       
@@ -213,7 +213,7 @@
           <a href="#" class="card-footer-item">Cancel</a>
         </footer>
       </div>
-    </div>
+    </div> -->
 
   </div>
 </div>
@@ -252,7 +252,11 @@ export default {
       try{
         await this.$http.put(`/users/${this.$store.state.id}`, updatedUser)
         this.userBeforeEdit = Object.assign({}, this.user)
-        alert("User has been updated!")
+        this.$buefy.toast.open({
+                    message: 'User has been updated!',
+                    type: 'is-success'
+                })
+                
       }catch(e){
         console.log(e)
       }

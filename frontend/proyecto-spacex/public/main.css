@@ -1,36 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&display=swap');
 
 * {
-  /* font-family: 'Lato', sans-serif; */
   font-family: 'Montserrat', sans-serif;
 }
+
+
 
 /*********** Helpers class ***********/
 
 .titles {
   display: inline;
   font-family: 'Anton', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 500;
+  font-size: 2.5rem !important;
+  font-weight: 500 !important;
   text-transform: uppercase;
   letter-spacing: 0.2rem;
-}
-
-.card-header img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0.4rem;
-  transform: scale(1.15);
 }
 
 .titles1 {
   display: inline;
   font-family: 'Anton', sans-serif;
-  font-size: 2.35rem;
-  font-weight: 500;
+  font-size: 2.35rem !important;
+  font-weight: 500 !important;
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   padding-top: 0.4rem;
@@ -52,37 +44,73 @@
   min-height: 80vh;
 }
 
+.page-75 {
+  min-height: 75vh;
+}
+
 a {
-  color: #3273dc;
+  color: #3273dc !important;
 }
 
 a:hover {
-  color: #9c9c9c;
+  color: #9c9c9c !important;
 }
 
 .has-background-darkblue {
-  background: #000a14;
+  background: #000a14 !important;
 }
 
 .has-background-blue {
-  background:  #1a232c;
-  color: #fff;
+  background:  #1a232c !important;
+  color: #fff !important;
+}
+
+.has-text-blue {
+  color: #3273dc !important;
 }
 
 .has-background-blue th, .has-background-blue td {
-  color: #fff;
+  color: #fff !important;
+}
+
+.is-blue {
+  background: #3273dc !important;
+  border: #3273dc !important;
 }
 
 .is-coral {
-  background: coral;
-  border: coral;
-  color: #fff;
+  background: coral !important;
+  border: coral !important;
+  color: #fff !important;
 }
 
 .is-coral:hover {
-  background: rgb(248, 119, 71);
-  border: rgb(248, 119, 71);
-  color: #fff;
+  background: rgb(248, 119, 71) !important;
+  border: rgb(248, 119, 71) !important;
+  color: #fff !important;
+}
+
+
+
+/*********** Navbar ***********/
+
+.navbar-link:not(.is-arrowless)::after {
+  border-color: #3273dc !important;
+}
+
+.link-admin, .menu-label {
+  color: #fff !important;
+}
+
+
+
+/*********** Home ***********/
+.instalacion {
+  background-image: url('./images/instalacion.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 70vh;
 }
 
 /*********** Missions ***********/
@@ -96,25 +124,24 @@ a:hover {
 }
 
 .sel select, .txt textarea {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid white;
-  border-radius: 20px;
-  width: 280px;
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid white !important;
+  border-radius: 20px !important;
 }
 
 .sel select option {
-  color: #000;
+  color: #000 !important;
 }
 
 .sel select::placeholder, .txt textarea::placeholder {
-  color: white;
-  opacity: 0.6;
+  color: white !important;
+  opacity: 0.6 !important;
 }
 
 .sel select:focus, .txt textarea::focus {
-  outline: 0;
-  border-color: coral;
+  outline: 0 !important;
+  border-color: coral !important;
 }
 
 
@@ -137,37 +164,36 @@ a:hover {
 }
 
 .card-size {
-  max-width: 480px;
+  max-width: 480px !important;
 }
 
 .form .input {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 15px;
-  border: 2px solid white;
-  border-radius: 20px;
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 2px solid white !important;
+  border-radius: 20px !important;
 }
 
 .form .input::placeholder {
-  color: white;
-  opacity: 0.6;
+  color: white !important;
+  opacity: 0.6 !important;
 }
 
 .form .input:focus {
-  outline: 0;
-  border-color: coral;
+  outline: 0 !important;
+  border-color: coral !important;
 }
 
 .btn {
-  border-radius: 25px;
-  background: coral;
-  border-color: coral;
-  color: white;
+  border-radius: 25px !important;
+  background: coral !important;
+  border-color: coral !important;
+  color: white !important;
 }
 
 .btn:hover {
-  background: coral;
-  border-color: coral;
+  background: coral !important;
+  border-color: coral !important;
 }
 
 
@@ -175,18 +201,18 @@ a:hover {
 /*********** Blog ***********/
 
 .card-blog {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 0.75rem;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.75rem !important;
+  color: #fff !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100% !important;
 }
 
 .card-blog:hover {
   /* top: -5px; */
-  box-shadow: 0 0 6px 2px rgba(255,255,255, 0.1);
-  transition: 0.3s;
+  box-shadow: 0 0 6px 2px rgba(255,255,255, 0.1) !important;
+  transition: 0.3s !important;
 }
 
 .card-blog .title a {
@@ -194,12 +220,7 @@ a:hover {
 }
 
 .card-blog .title a:hover {
-  color: #3273dc;
   text-decoration: underline;
-}
-
-.sigle-article {
-  height: 100vh;
 }
 
 .padre {
@@ -214,7 +235,7 @@ a:hover {
 
 
 
-/*********** Destinations ***********/
+/*********** Destinations & Spacecrafts ***********/
 
 .btn-white {
   border: 2px solid white;
@@ -223,5 +244,13 @@ a:hover {
   letter-spacing: 0.2rem;
   padding: 10px;
   width: 140px;
-  color: #fff;
+  color: #fff !important;
+}
+
+.card-header img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.4rem;
+  transform: scale(1.15);
 }

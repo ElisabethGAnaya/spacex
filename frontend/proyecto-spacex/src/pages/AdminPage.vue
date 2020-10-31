@@ -9,10 +9,10 @@
               ADMINISTRATION
             </p>
             <ul class="menu-list">
-              <li><router-link to="/admin/users">Users</router-link></li>
-              <li><router-link to="/admin/spacecrafts">Spacecrafts</router-link></li>
-              <li><router-link to="/admin/destinations">Destinations</router-link></li>
-              <li><router-link to="/admin/blog">Blog</router-link></li>
+              <li><router-link class="link-admin" to="/admin/users">Users</router-link></li>
+              <li><router-link class="link-admin" to="/admin/spacecrafts">Spacecrafts</router-link></li>
+              <li><router-link class="link-admin" to="/admin/destinations">Destinations</router-link></li>
+              <li><router-link class="link-admin" to="/admin/blog">Blog</router-link></li>
             </ul>
           </aside>
         </div>

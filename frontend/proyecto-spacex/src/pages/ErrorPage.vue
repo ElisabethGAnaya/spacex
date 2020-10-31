@@ -1,7 +1,11 @@
 <template>
 
-<div class="container">
-  error 404
+<div class="container page-75">
+  <div class="columns is-centered">
+    <div class="column is-half">
+      Error 404
+    </div>
+  </div>
 </div>
 
 </template>

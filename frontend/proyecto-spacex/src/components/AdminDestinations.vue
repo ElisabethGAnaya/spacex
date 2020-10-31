@@ -3,7 +3,7 @@
         
         <!-- Form -->
         <div class="column is-half">
-              <h1 class="title is-size-5 has-text-link">Add a New Destination</h1>
+              <h1 class="title is-size-5 has-text-blue">Add a New Destination</h1>
 
               <div class="columns">
                 <div class="column is-half">
@@ -105,7 +105,7 @@
 
               <div v-if="!editMode" class="field is-grouped">
                 <p class="control">
-                  <button class="button is-link" @click.prevent="saveDestination">
+                  <button class="button is-blue has-text-white" @click.prevent="saveDestination">
                     Save
                   </button>
                 </p>
@@ -118,7 +118,7 @@
 
               <div v-if="editMode" class="field is-grouped">
                 <p class="control">
-                  <button class="button is-link"  @click.prevent="updateDestination">
+                  <button class="button is-blue has-text-white"  @click.prevent="updateDestination">
                     Save Changes
                   </button>
                 </p>
@@ -130,9 +130,10 @@
               </div>
 
             </div>
+            
 
             <div class="column is-half">
-              <h1 class="title is-size-5 has-text-link">Destinations</h1>
+              <h1 class="title is-size-5 has-text-blue">Destinations</h1>
               <button class="button is-coral" @click="listDestinations">List Destinations</button>
               
               <!-- Card 1 -->
@@ -140,7 +141,7 @@
                 <div 
                   v-for="destination in destinations" 
                   :key="destination._id"
-                  class="card m-4"
+                  class="card card-size mt-4"
                 >
                   <div class="card-content">
                     <div class="media">
@@ -217,10 +218,16 @@ export default {
       try {
         await this.$http.post("/destinations", this.destination);
         this.destinations.unshift(this.destination)
-        alert("New destination has been added");
+        this.$buefy.toast.open({
+                    message: 'New destination has been added!',
+                    type: 'is-success'
+                })
       } catch (e) {
         console.log(e);
-        alert("Ups, looks like something went wrong. Please try again later");
+        this.$buefy.toast.open({
+                    message: 'Ups, looks like something went wrong. Please try again later :)',
+                    type: 'is-danger'
+                })
       }
       this.clearFields()
     },
@@ -235,9 +242,15 @@ export default {
         await this.$http.delete("/destinations/"+id)
         const destinationIndex = this.destinations.findIndex(destination => destination._id === id)
         this.destinations.splice(destinationIndex,1)
-        alert("Destination has been deleted")
+        this.$buefy.toast.open({
+                    message: 'Destination has been deleted'
+                })
       }catch(e){
         console.log(e)
+        this.$buefy.toast.open({
+                    message: 'Ups, looks like something went wrong. Please try again later :)',
+                    type: 'is-danger'
+                })
       }
     },
     async editDestination(id){
@@ -256,11 +269,18 @@ export default {
       let updatedDestination = this.destination
       try{
         await this.$http.put("/destinations/"+id, updatedDestination)
-        alert("Destination has been updated!")
+        this.$buefy.toast.open({
+                    message: 'Destination has been updated!',
+                    type: 'is-success'
+                })
         this.clearFields()
         this.editMode = false
       }catch(e){
         console.log(e)
+        this.$buefy.toast.open({
+                    message: 'Ups, looks like something went wrong. Please try again later :)',
+                    type: 'is-danger'
+                })
       }
     }
   }

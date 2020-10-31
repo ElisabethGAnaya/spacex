@@ -41,7 +41,7 @@ async function deleteDestination(req,res){
     res.json({message: "Destination was successfully deleted"})
   } catch (e) {
     console.info(e)
-    res.status(404).json({ message: "Destinations not found or cant' be deleted"})
+    res.status(404).json({ message: "Destination not found or cant' be deleted"})
   }
 }
 

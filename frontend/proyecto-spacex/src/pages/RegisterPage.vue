@@ -137,10 +137,18 @@ export default {
     async register(){
       try {
         await this.$http.post("/users", this.user)
-        alert("Congratulations, you account has been created")
+        this.$buefy.toast.open({
+                    message: 'Congratulations, you account has been created :)',
+                    type: 'is-success'
+                })
+
         this.$router.push({ name: "LoginPage" })
       } catch(e){
-        alert("Ups, something went wrong. Please try again later")
+        this.$buefy.toast.open({
+                    message: 'Ups, looks like something went wrong. Please try again later :)',
+                    type: 'is-danger'
+                })
+                
         consol.log(e)
       }
     }

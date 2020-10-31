@@ -33,9 +33,6 @@
           <span class="icon is-small is-left">
             <i class="fas fa-envelope"></i>
           </span>
-           <!-- <span class="icon is-small is-right">
-            <i class="fas fa-check"></i>
-          </span> -->
         </div>
       </div>
 
@@ -45,17 +42,8 @@
           <span class="icon is-small is-left">
             <i class="fas fa-lock"></i>
           </span>
-           <!-- <span class="icon is-small is-right">
-            <i class="fas fa-check"></i>
-          </span> -->
         </div>
       </div>
-
-      <!-- <div class="field mb-6">
-        <div class="control">
-          <input class="input has-text-white" type="password" placeholder="Pasword" required/>
-        </div>
-      </div> -->
           
       <button class="btn button mt-3" @click.prevent="login">Login</button>
 
@@ -85,7 +73,10 @@ export default {
         this.$router.push({ name: "HomePage"})
       }catch(e){
         console.log(e)
-        alert("If you have regestered account, but can't access. Please try a little bit later or contact administration")
+        this.$buefy.toast.open({
+                    message: "If you have regestered account, but can't access. Please try a little bit later or contact administration",
+                    type: 'is-danger'
+                })
         this.loginData.email = "",
         this.loginData.password = ""
       }

@@ -71,7 +71,7 @@
                   <router-link :to="{ name:'LoginPage'}">Login</router-link>
                 </span>
               </a>
-              <a class="button is-link" href="#">
+              <a class="button is-blue" href="#">
                 <span>
                   <router-link class="has-text-white" :to="{ name:'RegisterPage'}">Sign up</router-link>
                 </span>

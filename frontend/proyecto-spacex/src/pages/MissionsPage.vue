@@ -68,8 +68,6 @@
                         >
                           {{spacecraft.name}}
                         </option>
-                        <!-- <option value="5f97288745deef070589e347">Falcon 9</option>
-                        <option value="5f97299245deef070589e348">Falcon Heavy</option> -->
                       </select>
                     </div>
                   </div>
@@ -91,8 +89,6 @@
                         >
                           {{destination.name}}
                         </option>
-                        <!-- <option value="5f9872214f211e00cdb4bb0f">Mars</option>
-                        <option value="5f9872d04f211e00cdb4bb10">Jupiter</option> -->
                       </select>
                     </div>
                   </div>
@@ -121,12 +117,61 @@
     </section>
 
     <div class="container p-6">
-      <h1 class="title has-text-link">
+      <h1 class="title has-text-blue">
         All missions
       </h1>
 
-      <div class="columns is-multiline">
-        <div 
+      <button v-show="!showMyMissionsList" class="button mb-4" @click.prevent="allMyMissions">My Missions</button>
+      <button v-show="showMyMissionsList" class="button mb-4" @click.prevent="allMissions">All Missions</button>
+
+      <div class="columns is-multiline" v-show="showMyMissionsList">
+        <div
+          class="column is-4 " 
+          v-for="mission in myMissions"
+          :key="mission._id"
+        >
+          <div class="card has-background-blue">
+            <div class="card-content">
+              <p class="title is-4 has-text-white">
+                {{mission.name}}
+                <span class="tag is-success mr-1">{{mission.passengers.length}}/{{mission.spacecraft.passengers}}</span>
+              </p>
+              <table class="table is-fullwidth has-background-blue">
+                <tbody>
+                   <tr>
+                    <th>Created By:</th>
+                    <td> {{mission.creator.firstname}} {{mission.creator.lastname}} </td>
+                  </tr>
+                  <tr>
+                    <th>Destination:</th>
+                    <td> {{mission.destination.name}} </td>
+                  </tr>
+                  <tr>
+                    <th>Depart:</th>
+                    <td> {{ mission.depart | toDateOnly }} </td>
+                  </tr>
+                  <tr>
+                    <th>Return:</th>
+                    <td> {{ mission.return | toDateOnly }} </td>
+                  </tr>
+                  <tr>
+                    <th>Spacecraft:</th>
+                    <td> {{mission.spacecraft.name}} </td>
+                  </tr>
+                  <tr>
+                    <th>Description:</th>
+                    <td> {{mission.description}} </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button  class="btn button mt-3" @click.prevent="register(mission._id)">REGISTER</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-multiline" v-show="!showMyMissionsList">
+        <div
           class="column is-4 " 
           v-for="mission in missions"
           :key="mission._id"
@@ -189,7 +234,9 @@ export default {
       missions: [],
       isRegestered: false,
       destinations: [],
-      spacecrafts: []
+      spacecrafts: [],
+      myMissions: [],
+      showMyMissionsList: false
     };
   },
   methods: {
@@ -204,12 +251,19 @@ export default {
         missionData.return = new Date(missionData.return).getTime();
         missionData.depart = new Date(missionData.depart).getTime();
         this.$http.post("/missions", missionData, config);
-
-        alert("new mission has been created!");
+        // window.location.reload()
+        this.$buefy.toast.open({
+                    message: 'New mission has been created!',
+                    type: 'is-success'
+                })
         this.mission = "";
+        
       } catch (e) {
         console.log(e);
-        alert("something, went wrong. Try again later");
+        this.$buefy.toast.open({
+                    message: 'Something, went wrong. Try again later :)',
+                    type: 'is-danger'
+                })
       }
     },
     async register(missionId){
@@ -245,10 +299,30 @@ export default {
 
       try{
         await this.$http.put("/missions/"+missionId,{},config)
+        // window.location.reload()
         alert("You have been registered!")
       }catch(e){
         console.log(e)
         alert("Please try again later, or contact administration")
+      }
+    },
+    allMissions() {
+      this.showMyMissionsList = false
+    },
+    allMyMissions() {
+      // console.info(this.missions[0].passengers[0]._id)
+      this.myMissions = []
+      this.showMyMissionsList = true
+
+      for (let item of this.missions) {
+        for (let i of item.passengers) {
+          // console.info(i._id)
+
+          if(i._id === this.$store.state.id) {
+            this.myMissions.push(item)
+          }
+        }
+        // console.info(item)
       }
     }
   },
@@ -264,6 +338,6 @@ export default {
     this.$http.get("/spacecrafts").then((spacecrafts) => {
       this.spacecrafts =  spacecrafts.data.reverse()
     })
-  },
-};
+  }  
+}
 </script>

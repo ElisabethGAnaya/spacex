@@ -3,7 +3,7 @@
     <div class="columns">
       <!-- Form -->
       <div class="column is-half">
-        <h1 class="title is-size-5 has-text-link">Create a New Account</h1>
+        <h1 class="title is-size-5 has-text-blue">Create a New Account</h1>
 
         <div class="columns">
           <div class="column is-half">
@@ -174,7 +174,7 @@
 
         <div v-if="!editMode" class="field is-grouped">
           <p  class="control">
-            <button class="button is-link" @click.prevent="saveUser">
+            <button class="button is-blue has-text-white" @click.prevent="saveUser">
               Save
             </button>
           </p>
@@ -187,7 +187,7 @@
 
         <div v-else class="field is-grouped">
           <p  class="control">
-            <button class="button is-link" @click.prevent="updateUser">
+            <button class="button is-blue has-text-white" @click.prevent="updateUser">
               Submit Changes
             </button>
           </p>
@@ -203,12 +203,16 @@
       
 
       <div class="column is-half">
-        <h1 class="title is-size-5 has-text-link">Users</h1>
+        <h1 class="title is-size-5 has-text-blue">Users</h1>
         <button class="button is-coral" @click="listUsers">List Users</button>
 
         <!-- Card 1 -->
         <div v-show="showUserList">
-          <div v-for="user in users" :key="user._id" class="card m-4">
+          <div 
+            v-for="user in users" 
+            :key="user._id" 
+            class="card card-size mt-4"
+          >
             <div class="card-content">
               <p class="title is-4">
                 {{user.firstname}} 
@@ -290,10 +294,17 @@ export default {
       try {
         await this.$http.post("/users", this.user);
         this.users.unshift(this.user)
-        alert("New user has been created");
+        this.$buefy.toast.open({
+                    message: 'New user has been created!',
+                    type: 'is-success'
+                })
+
       } catch (e) {
         console.log(e);
-        alert("Ups, looks like something went wrong. Please try again later");
+        this.$buefy.toast.open({
+                    message: 'Ups, looks like something went wrong. Please try again later :)',
+                    type: 'is-danger'
+                })
       }
     },
     clearFields(){
@@ -316,7 +327,10 @@ export default {
         await this.$http.delete("/users/"+id)
         const userIndex = this.users.findIndex(user => user._id === id)
         this.users.splice(userIndex,1)
-        alert("user has been deleted")
+        this.$buefy.toast.open({
+                    message: 'User has been deleted'
+                })
+
       }catch(e){
         console.log(e)
       }
@@ -330,11 +344,19 @@ export default {
       let updatedUser = this.user
       try{
         await this.$http.put("/users/"+id, updatedUser)
-        alert("User has been updated!")
+        this.$buefy.toast.open({
+                    message: 'User has been updated!',
+                    type: 'is-success'
+                })
+
         this.clearFields()
         this.editMode = false
       }catch(e){
         console.log(e)
+        this.$buefy.toast.open({
+                    message: 'Ups, looks like something went wrong. Please try again later :)',
+                    type: 'is-danger'
+                })
       }
     }
   }

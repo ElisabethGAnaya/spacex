@@ -6,7 +6,7 @@
  
     <div class="padre pb-6">
 
-      <div class="card has-background-blue  hijo">
+      <div class="card has-background-blue hijo">
         <div class="card-image">
           <figure class="image is-4by3">
             <img :src="article.image" alt="Placeholder image">
@@ -15,7 +15,7 @@
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <p class="title has-text-link is-4">{{article.title}}</p>
+              <p class="title has-text-blue is-4">{{article.title}}</p>
             </div>
           </div>
 

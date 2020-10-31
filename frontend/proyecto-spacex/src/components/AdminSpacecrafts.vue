@@ -3,7 +3,7 @@
         
         <!-- Form -->
         <div class="column is-half">
-              <h1 class="title is-size-5 has-text-link">Add a New Spacecraft</h1>
+              <h1 class="title is-size-5 has-text-blue">Add a New Spacecraft</h1>
 
               <div class="columns">
                 <div class="column is-half">
@@ -153,7 +153,7 @@
 
               <div v-if="!editMode" class="field is-grouped">
                 <p class="control">
-                  <button class="button is-link"  @click.prevent="saveSpacecraft">
+                  <button class="button is-blue has-text-white"  @click.prevent="saveSpacecraft">
                     Save
                   </button>
                 </p>
@@ -166,7 +166,7 @@
 
               <div v-if="editMode" class="field is-grouped">
                 <p class="control">
-                  <button class="button is-link"  @click.prevent="updateSpacecraft">
+                  <button class="button is-blue has-text-white"  @click.prevent="updateSpacecraft">
                     Save Changes
                   </button>
                 </p>
@@ -180,7 +180,7 @@
             </div>
 
             <div class="column is-half">
-              <h1 class="title is-size-5 has-text-link">Spacecrafts</h1>
+              <h1 class="title is-size-5 has-text-blue">Spacecrafts</h1>
               <button class="button is-coral" @click="listSpacecrafts">List Spacecrafts</button>
               
               <!-- Card 1 -->
@@ -188,7 +188,7 @@
                 <div
                   v-for="spacecraft in spacecrafts" 
                   :key="spacecraft._id" 
-                  class="card m-4"
+                  class="card card-size mt-4"
                 >
                   <div class="card-content">
                     <div class="media">
@@ -281,10 +281,16 @@ export default {
       try {
         await this.$http.post("/spacecrafts", this.spacecraft);
         this.spacecrafts.unshift(this.spacecraft)
-        alert("New spacecraft has been added");
+        this.$buefy.toast.open({
+                    message: 'New spacecraft has been added',
+                    type: 'is-success'
+                })
       } catch (e) {
         console.log(e);
-        alert("Ups, looks like something went wrong. Please try again later");
+        this.$buefy.toast.open({
+                    message: 'Ups, looks like something went wrong. Please try again later :)',
+                    type: 'is-danger'
+                })
       }
       this.clearFields()
     },
@@ -299,7 +305,9 @@ export default {
         await this.$http.delete("/spacecrafts/"+id)
         const spacecraftIndex = this.spacecrafts.findIndex(spacecraft => spacecraft._id === id)
         this.spacecrafts.splice(spacecraftIndex,1)
-        alert("Spacecraft has been deleted")
+        this.$buefy.toast.open({
+                    message: 'Spacecraft has been deleted'
+                })
       }catch(e){
         console.log(e)
       }
@@ -320,11 +328,18 @@ export default {
       let updatedSpacecraft = this.spacecraft
       try{
         await this.$http.put("/spacecrafts/"+id, updatedSpacecraft)
-        alert("Spacecraft has been updated!")
+        this.$buefy.toast.open({
+                    message: 'Spacecraft has been updated!',
+                    type: 'is-success'
+                })
         this.clearFields()
         this.editMode = false
       }catch(e){
         console.log(e)
+        this.$buefy.toast.open({
+                    message: 'Ups, looks like something went wrong. Please try again later :)',
+                    type: 'is-danger'
+                })
       }
     }
 

@@ -24,7 +24,7 @@
 
       <div class="column is-half p-3">
         <div 
-          class="card has-background-blue columns is-multiline"
+          class="card has-background-blue columns is-multiline m-3"
           v-for="(item, index) in spacecraftSelected"
           :item="item"
           :key="index"
