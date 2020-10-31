@@ -269,6 +269,17 @@ export default {
       }
     },
     async deleteMission(missionId){
+       const userId = this.$store.state.id
+       const mission = await this.$http.get("missions/"+missionId)
+       const creatorId = mission.data.creator._id
+       if(userId !== creatorId){
+         this.$buefy.toast.open({
+           message: "You have to be creator of this mission to be able to delete it.",
+           type: 'is-danger'
+         })
+         return
+       }
+
       try{
         await this.$buefy.dialog.confirm({
            title: 'Deleting Mission',
