@@ -110,6 +110,7 @@
               <button class="btn button mt-3" @click="createMission">
                 Start!
               </button>
+              
             </div>
           </div>
         </div>
@@ -211,6 +212,7 @@
                 </tbody>
               </table>
               <button  class="btn button mt-3" @click.prevent="register(mission._id)">REGISTER</button>
+              <button class="button is-danger" @click.prevent="deleteMission(mission._id)">DELETE</button>
             </div>
           </div>
         </div>
@@ -266,6 +268,32 @@ export default {
                 })
       }
     },
+    async deleteMission(missionId){
+      try{
+        await this.$buefy.dialog.confirm({
+           title: 'Deleting Mission',
+                    message: 'Are you sure you want to <b>delete</b> this Mission? This action cannot be undone.',
+                    confirmText: 'Delete Mission',
+                    type: 'is-danger',
+                    hasIcon: true,
+                    onConfirm: () => this.deleteItem(missionId)  
+        })  
+      }catch(e){
+        this.$buefy.toast.open({
+          message: 'Something went wrong. Try again later',
+          type: 'is-danger'
+        })
+        console.log(e)
+      }
+    },
+
+    async deleteItem(missionId){
+       await this.$http.delete("/missions/"+missionId)
+       this.$buefy.toast.open("Mission has been deleted")
+       let missionIndex = this.missions.findIndex(item => item._id === missionId)
+       this.missions.splice(missionIndex,1)
+    },
+
     async register(missionId){
       const mission = await this.$http.get("/missions/"+missionId)
       const userId = this.$store.state.id
@@ -280,30 +308,45 @@ export default {
         return
       }
       if(mission.data.creator._id === userId){
-        alert("You are already registered to this mission")
-        return
+         this.$buefy.toast.open({
+                    message: 'You are already registered to this mission',
+                    type: 'is-danger'
+                })
+         return
       }
 
       
       let foundUser = mission.data.passengers.filter( e => e._id === userId)
       console.log(foundUser)
       if(foundUser.length > 0){
-        alert("You are already in passenger list")
+         this.$buefy.toast.open({
+                    message: 'You are already in Passenger list',
+                    type: 'is-danger'
+                })
         return
       }
 
       if(mission.data.passengers.length >= mission.data.spacecraft.passengers){
-        alert("This mission is fully booked")
+         this.$buefy.toast.open({
+                    message: 'This mission is fully booked',
+                    type: 'is-danger'
+                })
         return
       }
 
       try{
         await this.$http.put("/missions/"+missionId,{},config)
         // window.location.reload()
-        alert("You have been registered!")
+         this.$buefy.toast.open({
+                    message: 'You have been regestered!',
+                    type: 'is-success'
+                })
       }catch(e){
         console.log(e)
-        alert("Please try again later, or contact administration")
+         this.$buefy.toast.open({
+                    message: 'Something, went wrong. Try again later :)',
+                    type: 'is-danger'
+                })
       }
     },
     allMissions() {
@@ -324,7 +367,7 @@ export default {
         }
         // console.info(item)
       }
-    }
+    },
   },
   created() {
     this.$http.get("/missions").then((allMissions) => {
