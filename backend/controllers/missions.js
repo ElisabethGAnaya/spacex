@@ -51,7 +51,7 @@ async function deleteMission(req,res){
   let id = req.params.id
 
   try {
-    let deleted = await Missions.findOneAndDelete({_id: id}).populate('users', 'spacecrafts', 'destinations')
+    let deleted = await Missions.findOneAndDelete({_id: id})
     res.json({message: "Mission was successfully deleted"})
   } catch (e) {
     console.info(e)
