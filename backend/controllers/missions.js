@@ -48,8 +48,7 @@ async function getMission(req,res){
 
 
 async function deleteMission(req,res){
-  let id = req.params.id
-
+  console.log(id)
   try {
     let deleted = await Missions.findOneAndDelete({_id: id})
     res.json({message: "Mission was successfully deleted"})
@@ -68,15 +67,39 @@ async function updateMission(req, res) {
     res.status(404).json({message: "mission not found"})
   }
 
-  let updatedItem = item.toJSON()
-  updatedItem.passengers.push(req.user.id)
-
-  try{
-    await Missions.findOneAndUpdate({ _id: missionId }, updatedItem, {new:true}).populate('creator').populate('spacecraft').populate('passengers').populate('destination').exec()
-    res.json(updatedItem)
-  }catch(e){
-    res.status(500).json({message: "something went wrong"})
+  if(req.body.message === "addPassenger"){
+    let updatedItem = item.toJSON()
+    updatedItem.passengers.push(req.user.id)
+    try{
+      await Missions.findOneAndUpdate({ _id: missionId }, updatedItem, {new:true}).populate('creator').populate('spacecraft').populate('passengers').populate('destination').exec()
+      res.json(updatedItem)
+    }catch(e){
+      res.status(500).json({message: "something went wrong"})
+    }
   }
+
+  if(req.body.message === "removePassenger"){
+    let updatedItem = item.toJSON()
+    let index = updatedItem.passengers.findIndex(item => item === req.user.id)
+    updatedItem.passengers.splice(index,1)
+    try{
+      await Missions.findOneAndUpdate({ _id: missionId }, updatedItem, {new:true}).populate('creator').populate('spacecraft').populate('passengers').populate('destination').exec()
+      res.json(updatedItem)
+    }catch(e){
+      res.status(500).json({message: "something went wrong"})
+    }
+  }
+
+  // let updatedItem = item.toJSON()
+  // updatedItem.passengers.push(req.user.id)
+
+
+  // try{
+  //   await Missions.findOneAndUpdate({ _id: missionId }, updatedItem, {new:true}).populate('creator').populate('spacecraft').populate('passengers').populate('destination').exec()
+  //   res.json(updatedItem)
+  // }catch(e){
+  //   res.status(500).json({message: "something went wrong"})
+  // }
 }
 
 router.route('/')
