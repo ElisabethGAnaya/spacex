@@ -189,8 +189,9 @@
                 </tbody>
               </table>
               <footer class="card-footer card-footer-mission">
-                <button class="card-footer-item button is-blue has-text-white mr-3" @click.prevent="register(mission._id)">REGISTER</button>
+                <button v-if="!isRegestered" class="card-footer-item button is-blue has-text-white mr-3" @click.prevent="register(mission._id)">REGISTER</button>
                 <button class="card-footer-item button mr-3">ABANDON</button>
+                <button class="card-footer-item button is-success mr-3" @click.prevent="editMission(mission._id)">EDIT</button>
                 <button class="card-footer-item button is-danger" @click.prevent="deleteMission(mission._id)">DELETE</button>
               </footer>
             </div>
