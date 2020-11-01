@@ -189,7 +189,7 @@
                 </tbody>
               </table>
               <footer class="card-footer card-footer-mission">
-                <button v-if="!isRegestered" class="card-footer-item button is-blue has-text-white mr-3" @click.prevent="register(mission._id)">REGISTER</button>
+                <button  class="card-footer-item button is-blue has-text-white mr-3" @click.prevent="register(mission._id)">REGISTER</button>
                 <button class="card-footer-item button mr-3" @click.prevent="abandonMission(mission._id)">ABANDON</button>
                 <button class="card-footer-item button is-success mr-3" @click.prevent="editMission(mission._id)">EDIT</button>
                 <button class="card-footer-item button is-danger" @click.prevent="deleteMission(mission._id)">DELETE</button>
@@ -255,7 +255,6 @@ export default {
                     type: 'is-success'
                 })
         this.mission = "";
-        
       } catch (e) {
         console.log(e);
         this.$buefy.toast.open({
@@ -340,17 +339,19 @@ export default {
         return
       }
 
-      console.log("good for now")
-
-      // try{
-      //   await this.$http.put("missions/"+missionId,{},config)
-      // }catch(e){
-      //   console.log(e)
-      //   this.$buefy.toast.open({
-      //     message: "Looks like not possible to abandon right not. Please try again later",
-      //     type: "is-danger"
-      //   })
-      // }
+      try{
+        await this.$http.put("missions/"+missionId,{message:"removePassenger"},config)
+        this.$buefy.toast.open({
+          message: "You have quited the mission",
+          type: "is-success"
+        })
+      }catch(e){
+        console.log(e)
+        this.$buefy.toast.open({
+          message: "Looks like not possible to abandon right not. Please try again later",
+          type: "is-danger"
+        })
+      }
       
       
     },
@@ -378,7 +379,6 @@ export default {
 
       
       let foundUser = mission.data.passengers.filter( e => e._id === userId)
-      console.log(foundUser)
       if(foundUser.length > 0){
          this.$buefy.toast.open({
                     message: 'You are already in Passenger list',
@@ -396,7 +396,7 @@ export default {
       }
 
       try{
-        await this.$http.put("/missions/"+missionId,{},config)
+        await this.$http.put("/missions/"+missionId,{message:"addPassenger"},config)
         // window.location.reload()
          this.$buefy.toast.open({
                     message: 'You have been regestered!',
