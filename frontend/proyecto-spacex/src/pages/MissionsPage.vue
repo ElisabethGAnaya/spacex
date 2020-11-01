@@ -190,7 +190,7 @@
               </table>
               <footer class="card-footer card-footer-mission">
                 <button v-if="!isRegestered" class="card-footer-item button is-blue has-text-white mr-3" @click.prevent="register(mission._id)">REGISTER</button>
-                <button class="card-footer-item button mr-3">ABANDON</button>
+                <button class="card-footer-item button mr-3" @click.prevent="abandonMission(mission._id)">ABANDON</button>
                 <button class="card-footer-item button is-success mr-3" @click.prevent="editMission(mission._id)">EDIT</button>
                 <button class="card-footer-item button is-danger" @click.prevent="deleteMission(mission._id)">DELETE</button>
               </footer>
@@ -302,6 +302,57 @@ export default {
        this.$buefy.toast.open("Mission has been deleted")
        let missionIndex = this.missions.findIndex(item => item._id === missionId)
        this.missions.splice(missionIndex,1)
+    },
+
+    async abandonMission(missionId){
+      const config = {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.token}`,
+          },
+        }
+
+      let mission = await this.$http.get("/missions/"+missionId)
+     
+      if(!mission){
+        this.$buefy.toast.open({
+          message:"Ups, somethinw went wrong. Please try again later",
+          type: "is-danger"
+        })
+      }
+
+      if(mission.data.creator._id === this.$store.state.id){
+        this.$buefy.toast.open({
+          message: "You can't abandon mission which you have created. You can delete it instead",
+          type: "is-danger"
+        })
+        return
+      }
+
+      let passengerList = mission.data.passengers
+
+      let isInList = passengerList.find(passenger => passenger._id === this.$store.state.id)
+
+      if(!isInList){
+        this.$buefy.toast.open({
+          message: "You are not in passenger list",
+          type: "is-danger"
+        })
+        return
+      }
+
+      console.log("good for now")
+
+      // try{
+      //   await this.$http.put("missions/"+missionId,{},config)
+      // }catch(e){
+      //   console.log(e)
+      //   this.$buefy.toast.open({
+      //     message: "Looks like not possible to abandon right not. Please try again later",
+      //     type: "is-danger"
+      //   })
+      // }
+      
+      
     },
 
     async register(missionId){
