@@ -384,6 +384,7 @@ export default {
                 })
       }
     },
+
     async deleteMission(missionId){
        const userId = this.$store.state.id
        const mission = await this.$http.get("missions/"+missionId)
@@ -413,7 +414,19 @@ export default {
         console.log(e)
       }
     },
-    showModal(missionId) {
+
+    async showModal(missionId) {
+      const userId = this.$store.state.id
+      const mission = await this.$http.get("missions/"+missionId)
+      const creatorId = mission.data.creator._id
+      if(userId !== creatorId){
+        this.$buefy.toast.open({
+          message: "You have to be creator of this mission to be able to edit it.",
+          type: 'is-danger'
+        })
+        return
+      }
+
       this.okPressed = false;
       this.showModalFlag = true;
       let missionIndex = this.missions.findIndex(mission => mission._id === missionId)
@@ -427,8 +440,16 @@ export default {
     async editMission(){
       let id = this.mission_id
       let updatedMission = this.mission
+      updatedMission.return = new Date(updatedMission.return).getTime();
+      updatedMission.depart = new Date(updatedMission.depart).getTime();
+      let config = {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.token}`
+          }
+        }
+
       try{
-        await this.$http.put("/missions/"+id, updatedMission)
+        await this.$http.put("/missions/"+id, updatedMission, {message:"updateMission"}, config)
         this.$buefy.toast.open({
                     message: 'Mission has been updated!',
                     type: 'is-success'
@@ -444,6 +465,7 @@ export default {
       this.okPressed = true;
       this.showModalFlag = false;
     },
+
     async deleteItem(missionId){
        await this.$http.delete("/missions/"+missionId)
        this.$buefy.toast.open("Mission has been deleted")
@@ -502,7 +524,6 @@ export default {
           type: "is-danger"
         })
       }
-      
       
     },
 
@@ -564,6 +585,7 @@ export default {
       }
     }
   },
+
   computed: {
     missionsSelected() {
       if(this.currentMissions==="All Missions") return this.missions

@@ -89,6 +89,20 @@ async function updateMission(req, res) {
       res.status(500).json({message: "something went wrong"})
     }
   }
+
+  if(req.body.message === "updateMission"){
+    let updatedMission= req.body
+
+    let updatedItem = await Missions.findOneAndUpdate({ _id: missionId }, updatedMission).exec()
+
+    if(updatedItem) {
+      res.json(updatedMission)
+    }
+
+    if (!updatedItem) {
+      res.status(404).json({ message: "Mission not found" })
+    }
+  }
 }
 
 router.route('/')
