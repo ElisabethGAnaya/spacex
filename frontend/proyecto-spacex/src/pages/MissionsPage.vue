@@ -238,7 +238,7 @@ export default {
     })
   },
   methods: {
-    createMission() {
+    async createMission() {
       try {
         let config = {
           headers: {
@@ -248,13 +248,17 @@ export default {
         let missionData = { ...this.mission };
         missionData.return = new Date(missionData.return).getTime();
         missionData.depart = new Date(missionData.depart).getTime();
-        this.$http.post("/missions", missionData, config);
-        // window.location.reload()
+        await this.$http.post("/missions", missionData, config);
+        
         this.$buefy.toast.open({
                     message: 'New mission has been created!',
                     type: 'is-success'
                 })
         this.mission = "";
+        this.$http.get("/missions").then((allMissions) => {
+        this.missions = allMissions.data.reverse()})
+      
+
       } catch (e) {
         console.log(e);
         this.$buefy.toast.open({
@@ -345,6 +349,8 @@ export default {
           message: "You have quited the mission",
           type: "is-success"
         })
+        this.$http.get("/missions").then((allMissions) => {
+        this.missions = allMissions.data.reverse()})
       }catch(e){
         console.log(e)
         this.$buefy.toast.open({
@@ -403,6 +409,9 @@ export default {
                     type: 'is-success'
                 })
           this.isRegestered = true
+          this.$http.get("/missions").then((allMissions) => {
+          this.missions = allMissions.data.reverse()})
+           
       }catch(e){
         console.log(e)
          this.$buefy.toast.open({
