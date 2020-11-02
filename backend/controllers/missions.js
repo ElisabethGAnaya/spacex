@@ -48,7 +48,7 @@ async function getMission(req,res){
 
 
 async function deleteMission(req,res){
-  console.log(id)
+  const id = req.params.id
   try {
     let deleted = await Missions.findOneAndDelete({_id: id})
     res.json({message: "Mission was successfully deleted"})
@@ -89,17 +89,6 @@ async function updateMission(req, res) {
       res.status(500).json({message: "something went wrong"})
     }
   }
-
-  // let updatedItem = item.toJSON()
-  // updatedItem.passengers.push(req.user.id)
-
-
-  // try{
-  //   await Missions.findOneAndUpdate({ _id: missionId }, updatedItem, {new:true}).populate('creator').populate('spacecraft').populate('passengers').populate('destination').exec()
-  //   res.json(updatedItem)
-  // }catch(e){
-  //   res.status(500).json({message: "something went wrong"})
-  // }
 }
 
 router.route('/')
