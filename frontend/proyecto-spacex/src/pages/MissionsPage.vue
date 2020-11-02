@@ -189,13 +189,127 @@
                 </tbody>
               </table>
               <footer class="card-footer card-footer-mission">
-                <button  class="card-footer-item button is-blue has-text-white mr-3" @click.prevent="register(mission._id)">REGISTER</button>
+                <button  class="card-footer-item button is-coral has-text-white mr-3" @click.prevent="register(mission._id)">REGISTER</button>
                 <button class="card-footer-item button mr-3" @click.prevent="abandonMission(mission._id)">ABANDON</button>
-                <button class="card-footer-item button is-success mr-3" @click.prevent="editMission(mission._id)">EDIT</button>
+                <button class="card-footer-item button is-blue has-text-white mr-3" @click.prevent="showModal(mission._id)">EDIT</button>
                 <button class="card-footer-item button is-danger" @click.prevent="deleteMission(mission._id)">DELETE</button>
               </footer>
             </div>
           </div> 
+        </div>
+
+        <div class="modal" :class="{'is-active': showModalFlag}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head has-background-darkblue">
+            <p class="modal-card-title has-text-white">Edit Mission</p>
+          </header>
+          <section class="modal-card-body has-background-darkblue">
+            <div class="columns is-multiline">
+
+                <div class="column is-12">
+                  <div class="field">
+                    <div class="form control has-icons-left has-icons-right">
+                      <input
+                        v-model="mission.name"
+                        class="input has-text-white"
+                        type="text"
+                        placeholder="Mission name"
+                      />
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-angle-right"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="column is-6">
+                  <div class="field">
+                    <label class="label has-text-white">Depart</label>
+                    <div class="form control">
+                      <input
+                        v-model="mission.depart"
+                        class="input has-text-white"
+                        type="date"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="column is-6">
+                  <div class="field">
+                    <label class="label has-text-white">Return</label>
+                    <div class="form control">
+                      <input
+                        v-model="mission.return"
+                        class="input has-text-white"
+                        type="date"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="column is-6">
+                  <div class="field">
+                    <div class="select sel is-fullwidth is-rounded">
+                      <select
+                        v-model="mission.destination"
+                        name="destination"
+                        required
+                      >
+                        <!-- <option value="" disabled selected>Destination</option> -->
+                        <option 
+                          v-for="destination in destinations" 
+                          :key="destination._id"
+                          :value="destination._id"
+                        >
+                          {{destination.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="column is-6">
+                  <div class="field">
+                    <div class="select sel is-fullwidth is-rounded">
+                      <select
+                        v-model="mission.spacecraft"
+                        name="spacecraft"
+                        required
+                      >
+                        <!-- <option value="" disabled selected>Spacecraft</option> -->
+                        <option 
+                          v-for="spacecraft in spacecrafts" 
+                          :key="spacecraft._id"
+                          :value="spacecraft._id"
+                        >
+                          {{spacecraft.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="column is-12">
+                  <div class="field ">
+                    <div class="control txt">
+                      <textarea
+                        v-model="mission.description"
+                        class="textarea "
+                        placeholder="Description"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+          </section>
+          <footer class="modal-card-foot has-background-darkblue">
+            <button class="button is-blue has-text-white" @click.prevent="editMission(mission._id)">Save</button>
+            <button class="button" @click.prevent="cancelModal">Cancel</button>
+          </footer>
+        </div>
         </div>
 
       </div>
@@ -215,13 +329,16 @@ export default {
         depart: "",
         return: "",
       },
+      mission_id:"",
       missions: [],
       isRegestered: false,
       destinations: [],
       spacecrafts: [],
       myMissions: [],
       currentMissions: "All Missions",
-      categories: ["All Missions", "My Missions", "Missions Created By Me"]
+      categories: ["All Missions", "My Missions", "Missions Created By Me"],
+      showModalFlag: false,
+      okPressed: false
     };
   },
     created() {
@@ -296,9 +413,36 @@ export default {
         console.log(e)
       }
     },
-    editMission(missionId){
+    showModal(missionId) {
+      this.okPressed = false;
+      this.showModalFlag = true;
       let missionIndex = this.missions.findIndex(mission => mission._id === missionId)
       this.mission = this.missions[missionIndex]
+      this.mission_id = missionId
+    },
+    cancelModal() {
+      this.okPressed = false;
+      this.showModalFlag = false;
+    },
+    async editMission(){
+      let id = this.mission_id
+      let updatedMission = this.mission
+      try{
+        await this.$http.put("/missions/"+id, updatedMission)
+        this.$buefy.toast.open({
+                    message: 'Mission has been updated!',
+                    type: 'is-success'
+                })
+                
+      }catch(e){
+        console.log(e)
+        this.$buefy.toast.open({
+                    message: 'Ups, looks like something went wrong. Please try again later :)',
+                    type: 'is-danger'
+                })
+      }
+      this.okPressed = true;
+      this.showModalFlag = false;
     },
     async deleteItem(missionId){
        await this.$http.delete("/missions/"+missionId)
@@ -403,7 +547,6 @@ export default {
 
       try{
         await this.$http.put("/missions/"+missionId,{message:"addPassenger"},config)
-        // window.location.reload()
          this.$buefy.toast.open({
                     message: 'You have been regestered!',
                     type: 'is-success'
