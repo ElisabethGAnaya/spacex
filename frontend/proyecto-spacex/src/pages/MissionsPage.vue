@@ -430,9 +430,12 @@ export default {
       this.okPressed = false;
       this.showModalFlag = true;
       let missionIndex = this.missions.findIndex(mission => mission._id === missionId)
-      let missionData = {...this.mission[missionIndex]}
+      let missionData = {...this.missions[missionIndex]}
+      console.info(missionData, missionIndex)
       missionData.depart = (new Date(missionData.depart)).toISOString().split('T')[0]
-      // missionData.return = (new Date(missionData.return)).toISOString().split('T')[0]
+      missionData.return = (new Date(missionData.return)).toISOString().split('T')[0]
+      missionData.spacecraft = missionData.spacecraft._id
+      missionData.destination = missionData.destination._id
       this.mission = missionData
       this.mission_id = missionId
     },
@@ -442,7 +445,7 @@ export default {
     },
     async editMission(){
       let id = this.mission_id
-      let updatedMission = this.mission
+      let updatedMission = {...this.mission}
       updatedMission.return = new Date(updatedMission.return).getTime();
       updatedMission.depart = new Date(updatedMission.depart).getTime();
       let config = {
@@ -450,6 +453,8 @@ export default {
             Authorization: `Bearer ${this.$store.state.token}`
           }
         }
+      
+      updatedMission.message = "updateMission"
 
       try{
         await this.$http.put("/missions/"+id, updatedMission, config)
@@ -457,6 +462,10 @@ export default {
                     message: 'Mission has been updated!',
                     type: 'is-success'
                 })
+
+        this.$http.get("/missions").then((allMissions) => {
+        this.missions = allMissions.data.reverse();
+        });
                 
       }catch(e){
         console.log(e)
