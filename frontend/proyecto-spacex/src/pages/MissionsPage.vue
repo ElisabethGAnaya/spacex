@@ -430,7 +430,10 @@ export default {
       this.okPressed = false;
       this.showModalFlag = true;
       let missionIndex = this.missions.findIndex(mission => mission._id === missionId)
-      this.mission = this.missions[missionIndex]
+      let missionData = {...this.mission[missionIndex]}
+      missionData.depart = (new Date(missionData.depart)).toISOString().split('T')[0]
+      // missionData.return = (new Date(missionData.return)).toISOString().split('T')[0]
+      this.mission = missionData
       this.mission_id = missionId
     },
     cancelModal() {
@@ -449,7 +452,7 @@ export default {
         }
 
       try{
-        await this.$http.put("/missions/"+id, updatedMission, {message:"updateMission"}, config)
+        await this.$http.put("/missions/"+id, updatedMission, config)
         this.$buefy.toast.open({
                     message: 'Mission has been updated!',
                     type: 'is-success'
